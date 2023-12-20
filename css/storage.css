@@ -1,0 +1,15 @@
+.product-list {
+    width: 50%;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+.product-name,
+.product-count {
+    margin: 0;
+}
