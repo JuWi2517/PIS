@@ -26,7 +26,7 @@ if (!firebase.apps.length) {
   
   
   function handleSignUp(event) {
-        event.preventDefault();
+      event.preventDefault();
       const email = document.getElementById('emailInput').value;
       const password = document.getElementById('passwordInput').value;
   
@@ -59,7 +59,7 @@ if (!firebase.apps.length) {
             alert("Registrace se zdařila")
           })
           .catch((error) => {
-              alert(error)
+              alert('Účet už byl zaregistrován')
           });
   };
   

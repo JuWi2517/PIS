@@ -1,26 +1,32 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyAUI9U-zSLCS-MfqF4_lYo6abwWSKuoa2s",
-    authDomain: "projectinfosystem-c7a40.firebaseapp.com",
-    projectId: "projectinfosystem-c7a40",
-    storageBucket: "projectinfosystem-c7a40.appspot.com",
-    messagingSenderId: "141548851105",
-    appId: "1:141548851105:web:6b154365af8a97b75b05e0",
-    measurementId: "G-4YZFYKRD9Z",
-    databaseURL: "https://projectinfosystem-c7a40-default-rtdb.europe-west1.firebasedatabase.app/",
+  apiKey: "AIzaSyAUI9U-zSLCS-MfqF4_lYo6abwWSKuoa2s",
+  authDomain: "projectinfosystem-c7a40.firebaseapp.com",
+  projectId: "projectinfosystem-c7a40",
+  storageBucket: "projectinfosystem-c7a40.appspot.com",
+  messagingSenderId: "141548851105",
+  appId: "1:141548851105:web:6b154365af8a97b75b05e0",
+  measurementId: "G-4YZFYKRD9Z",
+  databaseURL: "https://projectinfosystem-c7a40-default-rtdb.europe-west1.firebasedatabase.app/",
 };
   
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // if already initialized, use that one
+}
   
 const database = firebase.database();
 const storage = firebase.storage().ref();
 
 function fetchProducts(id){
-    console.log("fetch");
+    //console.log("fetch");
     const products = new Array();
     var table = document.getElementById(id);
     var selectList = document.getElementById("skladInsertSelect");
     
     var i = 0; 
+	const productList = document.getElementById('productList');
+	console.log("fetch");	
     
     database.ref('products').once('value')
     .then(snapshot => {
@@ -46,10 +52,10 @@ function fetchProducts(id){
        });
     })
     .catch(error => {
-      //console.error('Error fetching products:', error);
+      console.error('Error fetching products:', error);
     });
     
-      
+    //console.log(products);
     return products;
 }
 function addPocetSklad(){
