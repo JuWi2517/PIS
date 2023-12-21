@@ -61,6 +61,11 @@
             
             <button type="submit" id="addProductButton" class="btn btn-primary">Add Product</button>
           </form>
+
+          <div id="adminRoleAssignment">
+            <input type="text" id="userUidInput" placeholder="Enter user UID">
+            <button onclick="assignAdminRole()">Assign Admin Role</button>
+          </div>
           
       
           
@@ -68,8 +73,12 @@
           <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
           <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
           <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
           <script type="module" src="js/productScript.js"></script>
           <script src="js/logIn.js"></script>
+          <script src="js/assignAdminRoles.js"></script>
+          <script src="js/checkAdmin.js"></script>
+          <script src="js/checkSign.js"></script>
     </div>
 </body>
 </html>

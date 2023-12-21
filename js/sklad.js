@@ -8,44 +8,60 @@ const firebaseConfig = {
     measurementId: "G-4YZFYKRD9Z",
     databaseURL: "https://projectinfosystem-c7a40-default-rtdb.europe-west1.firebasedatabase.app/",
 };
-
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  } else {
-    firebase.app(); // if already initialized, use that one
-  }
-
+  
+firebase.initializeApp(firebaseConfig);
   
 const database = firebase.database();
+const storage = firebase.storage().ref();
 
-function createList(productName){
-    const list = `
-    <div class="product-item">
-        <p class="product-name">${productName}</p>
-        <p class="product-count">Počet: 1</p>
-    </div>
-    `;
-    return list;
-}
-
-function list(){
-    const storageList = document.getElementById('storageList');
-
+function fetchProducts(id){
+    console.log("fetch");
+    const products = new Array();
+    var table = document.getElementById(id);
+    var selectList = document.getElementById("skladInsertSelect");
+    
+    var i = 0; 
+    
     database.ref('products').once('value')
     .then(snapshot => {
-        snapshot.forEach(childSnapshot => {
-            const productData = childSnapshot.val();
-            const productName = productData.name;
-            const list = createList(productName);
-            storageList.insertAdjacentHTML('beforeend', list);
-        });
+      snapshot.forEach(childSnapshot => {
+          const productData = childSnapshot.val();
+          
+          var row = table.insertRow();
+          
+          var cellOBR = row.insertCell(0);
+          var cellNazev = row.insertCell(1);
+          var cellPopis = row.insertCell(2);
+          var cellPocetKusu = row.insertCell(3);
+
+          cellOBR.innerHTML = '<img src="' + productData.imageURL + '" style="width:100px;height:100px;">' ;
+          cellNazev.innerHTML = productData.name;
+          cellPopis.innerHTML = productData.description;
+          cellPocetKusu.innerHTML = 0;
+          
+          products.push(productData);
+          selectList.innerHTML += '<option value="' + i + '">' + productData.name + '</option>';
+       
+          ++i;
+       });
     })
     .catch(error => {
-        console.error('Error fetching products:', error);
+      //console.error('Error fetching products:', error);
     });
+    
+      
+    return products;
+}
+function addPocetSklad(){
+     var id = document.getElementById("skladInsertSelect").value;
+     var count = document.getElementById("addCountProduct").value;
+     
+     console.log(id + " count: " + count);
+     
+     
 }
 
-window.onload = list;
 
 
 
+document.getElementById('productForm').addEventListener('submit', addProduct);

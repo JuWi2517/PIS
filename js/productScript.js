@@ -29,7 +29,8 @@ if (!firebase.apps.length) {
 
     const newProductRef = database.ref('products').push();
     const productId = newProductRef.key;  
-    const newImageRef = storage.child(`product_images/${productImage.name}`);
+    const uniqueImageName = `${Date.now()}-${productImage.name}`;
+  const newImageRef = storage.child(`product_images/${uniqueImageName}`);
     
     newImageRef.put(productImage)
       .then(snapshot => snapshot.ref.getDownloadURL())
@@ -43,7 +44,7 @@ if (!firebase.apps.length) {
           imageName: productImage.name, 
         });
 
-        // Create and add the product card here, where downloadURL is available
+        
         const card = createBootstrapCard(productName, downloadURL, productDescription, productPrice, productId);
         document.getElementById('productList').insertAdjacentHTML('beforeend', card);
        
@@ -99,7 +100,6 @@ if (!firebase.apps.length) {
   document.getElementById('productForm').addEventListener('submit', addProduct);
 
   function deleteProduct(productId) {
-    
     const productRef = database.ref('products/' + productId);
   
     productRef.once('value')
@@ -109,23 +109,31 @@ if (!firebase.apps.length) {
           throw new Error('Product not found');
         }
   
-        
         const imageName = productData.imageName;
         if (!imageName) {
           throw new Error('Image name not found');
         }
   
-        
-        const imageRef = storage.child(`product_images/${imageName}`);
-  
-        
-        return imageRef.delete().then(() => {
-          
-          return productRef.remove();
-        });
+       
+        return database.ref('products').orderByChild('imageName').equalTo(imageName).once('value')
+          .then(imageSnapshot => {
+            if (imageSnapshot.hasChildren() && imageSnapshot.numChildren() > 1) {
+              
+              return null;
+            } else {
+              
+              const imageRef = storage.child(`product_images/${imageName}`);
+              return imageRef.delete();
+            }
+          })
+          .then(() => {
+            
+            return productRef.remove();
+          });
       })
       .then(() => {
-        console.log('Product and image deleted successfully');
+        console.log('Product deleted successfully');
+  
         
         const productCard = document.getElementById('card-' + productId);
         if (productCard) {
@@ -133,7 +141,7 @@ if (!firebase.apps.length) {
         }
       })
       .catch(error => {
-        console.error('Error deleting product and image:', error);
+        console.error('Error deleting product:', error);
         alert('Error deleting product: ' + error.message);
       });
   }

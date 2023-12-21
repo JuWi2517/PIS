@@ -66,6 +66,7 @@ if (!firebase.apps.length) {
   
   const login = (email, password) => {
       auth.signInWithEmailAndPassword(email, password)
+      
           .then((userCredential) => {
               console.log('User logged in:', userCredential.user.uid);
           })
@@ -73,4 +74,13 @@ if (!firebase.apps.length) {
               console.error('Login error:', error);
           });
   }; 
-        
+  function signOutUser() {
+    firebase.auth().signOut().then(() => {
+      console.log("User signed out successfully");
+  
+      // Redirect to a different page after sign out, if necessary
+      window.location.href = 'login.html'; // Change this to your login page or home page
+    }).catch((error) => {
+      console.error("Error signing out: ", error);
+    });
+  }
