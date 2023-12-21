@@ -59,7 +59,7 @@ if (!firebase.apps.length) {
             alert("Registrace se zdařila")
           })
           .catch((error) => {
-              alert('Účet už byl zaregistrován')
+              alert(error)
           });
   };
   
@@ -78,8 +78,8 @@ if (!firebase.apps.length) {
     firebase.auth().signOut().then(() => {
       console.log("User signed out successfully");
   
-      // Redirect to a different page after sign out, if necessary
-      window.location.href = 'login.html'; // Change this to your login page or home page
+      
+      window.location.href = 'login.html'; 
     }).catch((error) => {
       console.error("Error signing out: ", error);
     });
