@@ -65,7 +65,7 @@ if (!firebase.apps.length) {
           <p class="card-text">${productDescription}</p>
           <p class="card-text">${productPrice}Kč</p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
-          <button onclick="deleteProduct('${productId}')" class="btn btn-danger">Delete</button>
+          <button onclick="deleteProduct('${productId}')" class="btn btn-danger">Odstranit</button>
            
         </div>
       </div>
@@ -99,7 +99,7 @@ if (!firebase.apps.length) {
   document.getElementById('productForm').addEventListener('submit', addProduct);
 
   function deleteProduct(productId) {
-    // Reference to the specific product in the database
+    
     const productRef = database.ref('products/' + productId);
   
     productRef.once('value')
@@ -109,24 +109,24 @@ if (!firebase.apps.length) {
           throw new Error('Product not found');
         }
   
-        // Retrieve the image name
+        
         const imageName = productData.imageName;
         if (!imageName) {
           throw new Error('Image name not found');
         }
   
-        // Reference to the image file in Firebase Storage
+        
         const imageRef = storage.child(`product_images/${imageName}`);
   
-        // Delete the image file from Firebase Storage
+        
         return imageRef.delete().then(() => {
-          // Delete the product data from the database
+          
           return productRef.remove();
         });
       })
       .then(() => {
         console.log('Product and image deleted successfully');
-        // Remove the product card from the UI
+        
         const productCard = document.getElementById('card-' + productId);
         if (productCard) {
           productCard.remove();
