@@ -41,7 +41,8 @@ if (!firebase.apps.length) {
           imageURL: downloadURL,
           description: productDescription,
           price: productPrice,
-          imageName: uniqueImageName, 
+          imageName: uniqueImageName,
+          stockCount: 0
         });
 
         

@@ -35,18 +35,20 @@ function fetchProducts(id){
           
           var row = table.insertRow();
           
-          var cellOBR = row.insertCell(0);
-          var cellNazev = row.insertCell(1);
-          var cellPopis = row.insertCell(2);
-          var cellPocetKusu = row.insertCell(3);
+          var cellId = row.insertCell(0);
+          var cellOBR = row.insertCell(1);
+          var cellNazev = row.insertCell(2);
+          var cellPopis = row.insertCell(3);
+          var cellPocetKusu = row.insertCell(4);
 
           cellOBR.innerHTML = '<img src="' + productData.imageURL + '" style="width:100px;height:100px;">' ;
           cellNazev.innerHTML = productData.name;
           cellPopis.innerHTML = productData.description;
           cellPocetKusu.innerHTML = productData.stockCount;
+          cellId.innerHTML = childSnapshot.key;
           
           products.push(productData);
-          selectList.innerHTML += '<option value="' + i + '">' + productData.name + '</option>';
+          selectList.innerHTML += '<option value="' + childSnapshot.key + '">' + productData.name + '</option>';
        
           ++i;
        });
@@ -59,18 +61,20 @@ function fetchProducts(id){
     return products;
 }
 function addPocetSklad() {
-  var productId = document.getElementById("skladInsertSelect").value; // This needs to correspond to the product's key
-  var newCount = parseInt(document.getElementById("addCountProduct").value, 10); // Get the new quantity
+  var productId = document.getElementById("skladInsertSelect").value;
+  var newCount = parseInt(document.getElementById("addCountProduct").value, 10); 
+  console.log(productId)
+ 
   
   if (!isNaN(newCount) && newCount >= 0) {
-      // Correctly reference the product's key in the database to update its stockCount
-      var productRef = database.ref('products/' + productId); // Ensure this is the correct path
+      
+      var productRef = database.ref('products/' + productId); 
 
       productRef.transaction((product) => {
           if (product) {
-              product.stockCount = newCount; // Modify stockCount within the transaction
+              product.stockCount = newCount; 
           }
-          return product; // Return the updated object to be committed to the database
+          return product; 
       }, (error, committed, snapshot) => {
           if (error) {
               console.error('Transaction failed abnormally!', error);
@@ -87,8 +91,7 @@ function addPocetSklad() {
   }
 }
 
-// Bind the addPocetSklad function to the appropriate event
-// Replace 'updateStockButton' with the actual ID of your button
+
 document.getElementById('updateStockButton').addEventListener('click', addPocetSklad);
 
 document.getElementById('productForm').addEventListener('submit', addProduct);
