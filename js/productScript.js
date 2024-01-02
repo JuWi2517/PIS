@@ -30,7 +30,7 @@ if (!firebase.apps.length) {
     const newProductRef = database.ref('products').push();
     const productId = newProductRef.key;  
     const uniqueImageName = `${Date.now()}-${productImage.name}`;
-  const newImageRef = storage.child(`product_images/${uniqueImageName}`);
+    const newImageRef = storage.child(`product_images/${uniqueImageName}`);
     
     newImageRef.put(productImage)
       .then(snapshot => snapshot.ref.getDownloadURL())
@@ -41,7 +41,7 @@ if (!firebase.apps.length) {
           imageURL: downloadURL,
           description: productDescription,
           price: productPrice,
-          imageName: productImage.name, 
+          imageName: uniqueImageName, 
         });
 
         

@@ -43,7 +43,7 @@ function fetchProducts(id){
           cellOBR.innerHTML = '<img src="' + productData.imageURL + '" style="width:100px;height:100px;">' ;
           cellNazev.innerHTML = productData.name;
           cellPopis.innerHTML = productData.description;
-          cellPocetKusu.innerHTML = 0;
+          cellPocetKusu.innerHTML = productData.stockCount;
           
           products.push(productData);
           selectList.innerHTML += '<option value="' + i + '">' + productData.name + '</option>';
@@ -58,16 +58,37 @@ function fetchProducts(id){
     //console.log(products);
     return products;
 }
-function addPocetSklad(){
-     var id = document.getElementById("skladInsertSelect").value;
-     var count = document.getElementById("addCountProduct").value;
-     
-     console.log(id + " count: " + count);
-     
-     
+function addPocetSklad() {
+  var productId = document.getElementById("skladInsertSelect").value; // This needs to correspond to the product's key
+  var newCount = parseInt(document.getElementById("addCountProduct").value, 10); // Get the new quantity
+  
+  if (!isNaN(newCount) && newCount >= 0) {
+      // Correctly reference the product's key in the database to update its stockCount
+      var productRef = database.ref('products/' + productId); // Ensure this is the correct path
+
+      productRef.transaction((product) => {
+          if (product) {
+              product.stockCount = newCount; // Modify stockCount within the transaction
+          }
+          return product; // Return the updated object to be committed to the database
+      }, (error, committed, snapshot) => {
+          if (error) {
+              console.error('Transaction failed abnormally!', error);
+          } else if (!committed) {
+              console.error('We aborted the transaction (because product does not exist).');
+          } else {
+              console.log('Stock count updated!');
+          }
+          console.log("Snapshot of data: ", snapshot.val());
+      });
+  } else {
+      console.error("Invalid count value");
+      // Handle invalid input (e.g., not a number or negative number)
+  }
 }
 
-
-
+// Bind the addPocetSklad function to the appropriate event
+// Replace 'updateStockButton' with the actual ID of your button
+document.getElementById('updateStockButton').addEventListener('click', addPocetSklad);
 
 document.getElementById('productForm').addEventListener('submit', addProduct);

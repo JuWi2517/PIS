@@ -4,81 +4,84 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/mainStyle.css">
-    <title>Košík</title>
+    <title>Admin Panel</title>
 </head>
 <body>
     <div class="navBar">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="https://spsezatec.cz/images/logo/spse.jpg" alt="Bootstrap" width="60" height="30">
-                </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="admin.html">Admin</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="login.html">Login</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="kosik.html">Košík</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active"" href="sklad.html" role="button">Sklad</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-          <h1 style="text-align: center; margin: 3%;">Admin</h1>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://spsezatec.cz/images/logo/spse.jpg" alt="Bootstrap" width="60" height="30">
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a id="admin" style="display: none;" class="nav-link active" aria-current="page" href="admin.html">Admin</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="login.html">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="kosik.html">Košík</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="sklad.html">Sklad</a>
+              </li>
+            </ul> 
+          </div>
+        </div>
+      </nav>
+    </div>
 
-          <form id="productForm">
+    <div class="container">
+        <h1 class="page-title">Admin Panel</h1>
+
+        <form id="productForm" class="admin-form">
             <div class="form-group">
-              <label for="productName">Product Name:</label>
-              <input type="text" class="form-control" id="productName" required>
+                <label for="productName">Product Name:</label>
+                <input type="text" class="form-control" id="productName" required>
             </div>
             <div class="form-group">
-              <label for="productImage">Product Image:</label>
-              <input type="file" class="form-control-file" id="productImage" accept="image/*" required>
+                <label for="productImage">Product Image:</label>
+                <input type="file" class="form-control-file" id="productImage" accept="image/*" required>
             </div>
             <div class="form-group">
-              <label for="productDescription">Description:</label>
-              <input type="text" class="form-control" id="productDescription" required>
+                <label for="productDescription">Description:</label>
+                <input type="text" class="form-control" id="productDescription" required>
             </div>
             <div class="form-group">  
-              <label for="productPrice">Product Price:</label>
-              <input type="number" class="form-control-file" id="productPrice"  required>
+                <label for="productPrice">Product Price:</label>
+                <input type="number" class="form-control-file" id="productPrice"  required>
             </div>
             
             <button type="submit" id="addProductButton" class="btn btn-primary">Add Product</button>
-          </form>
+        </form>
 
-          <div id="adminRoleAssignment">
-            <input type="text" id="userUidInput" placeholder="Enter user UID">
-            <button onclick="assignAdminRole()">Assign Admin Role</button>
-          </div>
-          
-      
-          
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-          <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-          <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-          <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-          <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-          <script type="module" src="js/productScript.js"></script>
-          <script src="js/logIn.js"></script>
-          <script src="js/assignAdminRoles.js"></script>
-          <script src="js/checkAdmin.js"></script>
-          <script src="js/checkSign.js"></script>
+        <div id="adminRoleAssignment" class="role-assignment">
+            <input type="text" id="userUidInput" class="form-control" placeholder="Enter user UID">
+            <button onclick="assignAdminRole()" class="btn btn-secondary">Assign Admin Role</button>
+        </div>
+
+        
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script type="module" src="js/productScript.js"></script> 
+    <script src="js/logIn.js"></script>
+    <script src="js/assignAdminRoles.js"></script>
+    <script src="js/checkAdmin.js"></script> 
+    <script src="js/checkSign.js"></script>
 </body>
 </html>
