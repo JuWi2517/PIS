@@ -7,7 +7,7 @@ const app = express();
 const port = 3000;
 
 // Using path.join to construct the path to the Firebase service account file
-const serviceAccount = require(path.join(__dirname, 'js', 'projectinfosystem-c7a40-firebase-adminsdk-1wzrs-131919a3c7.json'));
+const serviceAccount = require('./projectinfosystem-c7a40-firebase-adminsdk-1wzrs-131919a3c7.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -30,6 +30,17 @@ app.post('/assignAdmin', (req, res) => {
     });
 });
 
+app.post('/removeAdmin', (req, res) => {
+  const uid = req.body.uid;
+
+  admin.auth().setCustomUserClaims(uid, { admin: false })
+    .then(() => {
+      res.status(200).send(`Admin role removed from user ID: ${uid}`);
+    })
+    .catch(error => {
+      res.status(500).send(`Error removing admin role: ${error.message}`);
+    });
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

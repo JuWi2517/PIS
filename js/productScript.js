@@ -60,14 +60,14 @@ if (!firebase.apps.length) {
 
   function createBootstrapCard(productName, imageURL, productDescription, productPrice, productId) {
     const card = `
-      <div id="card-${productId}" class="card" style="width: 18rem; margin: 30px;">
+    <div data-product-id="${productId}" id="card-${productId}" class="card" style="width: 18rem; margin: 30px;">
         <img src="${imageURL}" class="card-img-top" alt="Product Image">
         <div class="card-body">
           <h5 class="card-title">${productName}</h5>
           <p class="card-text">${productDescription}</p>
           <p class="card-text">${productPrice}Kč</p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
-          <button onclick="deleteProduct('${productId}')" class="btn btn-danger">Odstranit</button>
+          <button  onclick="deleteProduct('${productId}')" class="btn btn-danger">Delete</button>
            
         </div>
       </div>

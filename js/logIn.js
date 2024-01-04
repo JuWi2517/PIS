@@ -69,6 +69,7 @@ if (!firebase.apps.length) {
       
           .then((userCredential) => {
               console.log('User logged in:', userCredential.user.uid);
+              window.location.href = 'index.html';
           })
           .catch((error) => {
               console.error('Login error:', error);

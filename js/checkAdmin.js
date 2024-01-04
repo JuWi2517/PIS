@@ -5,7 +5,8 @@ firebase.auth().onAuthStateChanged((user) => {
       .then((idTokenResult) => {
         if (idTokenResult.claims.admin) {
           console.log('User is an admin');
-          document.getElementById('admin').style.display = "block";
+          document.getElementById("admin").style.display = "block";
+          
         } else {
           console.log('User is not an admin');
         }
