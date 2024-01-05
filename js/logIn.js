@@ -72,6 +72,7 @@ if (!firebase.apps.length) {
               window.location.href = 'index.html';
           })
           .catch((error) => {
+              alert("Špatný email nebo heslo")
               console.error('Login error:', error);
           });
   }; 

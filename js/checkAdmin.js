@@ -1,6 +1,5 @@
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    
     user.getIdTokenResult()
       .then((idTokenResult) => {
         if (idTokenResult.claims.admin) {

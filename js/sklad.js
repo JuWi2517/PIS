@@ -24,8 +24,8 @@ function fetchProducts(id){
     var table = document.getElementById(id);
     var selectList = document.getElementById("skladInsertSelect");
     
-    var i = 0; 
-	const productList = document.getElementById('productList');
+    
+
 	console.log("fetch");	
     
     database.ref('products').once('value')
@@ -50,7 +50,7 @@ function fetchProducts(id){
           products.push(productData);
           selectList.innerHTML += '<option value="' + childSnapshot.key + '">' + productData.name + '</option>';
        
-          ++i;
+          
        });
     })
     .catch(error => {
@@ -62,8 +62,8 @@ function fetchProducts(id){
 }
 function addPocetSklad() {
   var productId = document.getElementById("skladInsertSelect").value;
-  var newCount = parseInt(document.getElementById("addCountProduct").value, 10); 
-  console.log(productId)
+  var newCount = parseInt(document.getElementById("addCountProduct").value); 
+  //console.log(productId)
  
   
   if (!isNaN(newCount) && newCount >= 0) {

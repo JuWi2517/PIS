@@ -19,8 +19,8 @@ if (!firebase.apps.length) {
   const storage = firebase.storage().ref();
 
  
-  function addProduct(event) {
-    event.preventDefault();
+  function addProduct() {
+   
 
     const productName = document.getElementById('productName').value;
     const productImage = document.getElementById('productImage').files[0];

@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-// Using path.join to construct the path to the Firebase service account file
+
 const serviceAccount = require('./projectinfosystem-c7a40-firebase-adminsdk-1wzrs-131919a3c7.json');
 
 admin.initializeApp({
@@ -14,11 +14,11 @@ admin.initializeApp({
   databaseURL: 'https://projectinfosystem-c7a40-default-rtdb.europe-west1.firebasedatabase.app/'
 });
 
-// Middlewares
+
 app.use(bodyParser.json());
 app.use(cors());
 
-// Assign Admin Role Endpoint
+
 app.post('/assignAdmin', (req, res) => {
   const uid = req.body.uid;
   admin.auth().setCustomUserClaims(uid, { admin: true })
@@ -41,7 +41,7 @@ app.post('/removeAdmin', (req, res) => {
       res.status(500).send(`Error removing admin role: ${error.message}`);
     });
 });
-// Start the server
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
