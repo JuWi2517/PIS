@@ -60,6 +60,7 @@
 			<select id="skladInsertSelect"></select>
 			<input id = "addCountProduct" type="number"></input>
 			<input type="button" value="Přidat počet" onclick="addPocetSklad();"></input>		  
+			<input type="button" value="Přidat počet" onclick="addPocetSklad();"></input>		  
 		  </div>
 
 			<h2 style="text-align:center;">Zboží na skladě</h2>

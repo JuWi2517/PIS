@@ -23,8 +23,7 @@ function fetchProducts(id){
     const products = new Array();
     var table = document.getElementById(id);
     var selectList = document.getElementById("skladInsertSelect");
-    table.innerHTML = "";
-	
+    table.clear();
     
 
 	console.log("fetch");	
