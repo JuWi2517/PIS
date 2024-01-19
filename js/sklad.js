@@ -23,8 +23,9 @@ function fetchProducts(id){
     const products = new Array();
     var table = document.getElementById(id);
     var selectList = document.getElementById("skladInsertSelect");
+    var removeSelectList = document.getElementById("skladRemoveSelect");
     table.innerHTML = "";
-	
+    
     
 
 	console.log("fetch");	
@@ -49,8 +50,11 @@ function fetchProducts(id){
           cellId.innerHTML = childSnapshot.key;
           
           products.push(productData);
+          
           selectList.innerHTML += '<option value="' + childSnapshot.key + '">' + productData.name + '</option>';
-       
+          removeSelectList.innerHTML += '<option value="' + childSnapshot.key + '">' + productData.name + '</option>';
+            
+        
           
        });
     })
@@ -74,6 +78,42 @@ function addPocetSklad() {
       productRef.transaction((product) => {
           if (product) {
               product.stockCount += newCount; 
+              location.reload("sklad.html")
+          }		  
+          return product; 
+          
+      }, (error, committed, snapshot) => {
+          if (error) {
+              console.error('Transaction failed abnormally!', error);
+          } else if (!committed) {
+              console.error('We aborted the transaction (because product does not exist).');
+          } else {
+              console.log('Stock count updated!');
+          }
+          console.log("Snapshot of data: ", snapshot.val());
+      });
+  } else {
+      console.error("Invalid count value");
+     
+  }
+  
+  
+}
+function removePocetSklad() {
+  var productId = document.getElementById("skladRemoveSelect").value;
+  var newCount = parseInt(document.getElementById("removeCountProduct").value); 
+  //console.log(productId)
+ 
+  
+  if (!isNaN(newCount) && newCount > 0) {  
+      
+      var productRef = database.ref('products/' + productId); 
+
+      productRef.transaction((product) => {
+          if (product) {
+            if(product.stockCount > 0)
+              product.stockCount -= newCount; 
+              location.reload("sklad.html")
           }		  
           return product; 
       }, (error, committed, snapshot) => {
@@ -90,11 +130,10 @@ function addPocetSklad() {
       console.error("Invalid count value");
       // Handle invalid input (e.g., not a number or negative number)
   }
-  fetchProducts("storageTable");
+  
   
 }
 
 
-document.getElementById('updateStockButton').addEventListener('click', addPocetSklad);
 
-document.getElementById('productForm').addEventListener('submit', addProduct);
+
