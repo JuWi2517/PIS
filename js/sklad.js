@@ -113,7 +113,7 @@ function removePocetSklad() {
           if (product) {
             if(product.stockCount > 0)
               product.stockCount -= newCount; 
-              location.reload("sklad.html")
+              location.reload("sklad.html")   
           }		  
           return product; 
       }, (error, committed, snapshot) => {

@@ -70,6 +70,11 @@
             <button onclick="assignAdminRole()" class="btn btn-secondary">Přidělit Admin Roli</button>
             <button onclick="removeAdminRole()" class="btn btn-danger">Odstranit Admin Roli</button>
         </div>
+        <div id="adminRoleAssignment" class="role-assignment">
+          <input type="text" id="userWarehouseUidInput" class="form-control" placeholder="Zadej UID">
+          <button onclick="assignWarehouseRole()" class="btn btn-secondary">Přidělit Skladník Roli</button>
+          <button onclick="removeWarehouseRole()" class="btn btn-danger">Odstranit Skladník Roli</button>
+      </div>
 
         
     </div>
@@ -81,8 +86,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script type="module" src="js/productScript.js"></script> 
     <script src="js/logIn.js"></script>
-    <script src="js/assignAdminRoles.js"></script>
-    <script src="js/checkAdmin.js"></script> 
+    <script src="js/assignRoles.js"></script>
+    <script src="js/checkRoles.js"></script> 
     <script src="js/checkSign.js"></script>
 </body>
 </html>
