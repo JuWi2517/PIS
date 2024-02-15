@@ -1,137 +1,138 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyAUI9U-zSLCS-MfqF4_lYo6abwWSKuoa2s",
-  authDomain: "projectinfosystem-c7a40.firebaseapp.com",
-  projectId: "projectinfosystem-c7a40",
-  storageBucket: "projectinfosystem-c7a40.appspot.com",
-  messagingSenderId: "141548851105",
-  appId: "1:141548851105:web:6b154365af8a97b75b05e0",
-  measurementId: "G-4YZFYKRD9Z",
-  databaseURL: "https://projectinfosystem-c7a40-default-rtdb.europe-west1.firebasedatabase.app/",
-};
-  
 if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+	var firebaseConfig = {
+		apiKey: "AIzaSyAUI9U-zSLCS-MfqF4_lYo6abwWSKuoa2s",
+		authDomain: "projectinfosystem-c7a40.firebaseapp.com",
+		projectId: "projectinfosystem-c7a40",
+		storageBucket: "projectinfosystem-c7a40.appspot.com",
+		messagingSenderId: "141548851105",
+		appId: "1:141548851105:web:6b154365af8a97b75b05e0",
+		measurementId: "G-4YZFYKRD9Z",
+		databaseURL: "https://projectinfosystem-c7a40-default-rtdb.europe-west1.firebasedatabase.app/",
+	};
+
+	firebase.initializeApp(firebaseConfig);
 } else {
-  firebase.app(); // if already initialized, use that one
+	firebase.app(); // if already initialized, use that one
 }
   
 const database = firebase.database();
 const storage = firebase.storage().ref();
 
 function fetchProducts(id){
-    //console.log("fetch");
-    const products = new Array();
-    var table = document.getElementById(id);
-    var selectList = document.getElementById("skladInsertSelect");
-    var removeSelectList = document.getElementById("skladRemoveSelect");
-    table.innerHTML = "";
+	const products = new Array();
+	var table = document.getElementById(id);
+	var selectList = document.getElementById("skladInsertSelect");
+	var removeSelectList = document.getElementById("skladRemoveSelect");
+	table.innerHTML = "";
+	var totalPrice = 0;
+	var totalP1 = document.getElementById("totalP");
+    		  
+	var row = addRowCells(table,7); 
+	setCellText(row,0,"Obrázek");	
+	setCellText(row,1,"Název");	
+	setCellText(row,2,"Popis");	
+	setCellText(row,3,"Kusů zboží");
+	setCellText(row,4,"Cena za kus");
+	setCellText(row,5,"Cena za zboží celkem");	
     
-    
+	database.ref('products').once('value')
+	.then(snapshot => {
+		snapshot.forEach(childSnapshot => {
+			const productData = childSnapshot.val();
+          
+			var cellOBR = '<img src="' + productData.imageURL + '" style="width:100px;height:100px;">' ;
+			
+			var totalPriceProduct = productData.price * productData.stockCount;
+			
+			var cellRemove = '<input class="btn btn-danger"type="submit" value="Smazat">';
+			var cellEdit = '<a href="#" class="btn btn-primary">Editovat</a>';
+			
+			var row = addRowCells(table,8); 
+			setCellText(row,0,cellOBR);	
+			setCellText(row,1,productData.name);	
+			setCellText(row,2,productData.description);	
+			setCellText(row,3,productData.stockCount);
+			setCellText(row,4,productData.price + " Kč");
+			setCellText(row,5,totalPriceProduct + " Kč");
+			setCellText(row,6,cellEdit);
+			setCellText(row,7,cellRemove);				
 
-	console.log("fetch");	
+			totalPrice += totalPriceProduct;
+			    
+		});
+		var row = addRowCells(table,8); 
+		setCellText(row,5,totalPrice + " Kč");		
+	})
+	.catch(error => {
+		console.error('Error fetching products:', error);
+	});
     
-    database.ref('products').once('value')
-    .then(snapshot => {
-      snapshot.forEach(childSnapshot => {
-          const productData = childSnapshot.val();
-          
-          var row = table.insertRow();
-          
-          var cellId = row.insertCell(0);
-          var cellOBR = row.insertCell(1);
-          var cellNazev = row.insertCell(2);
-          var cellPopis = row.insertCell(3);
-          var cellPocetKusu = row.insertCell(4);
-
-          cellOBR.innerHTML = '<img src="' + productData.imageURL + '" style="width:100px;height:100px;">' ;
-          cellNazev.innerHTML = productData.name;
-          cellPopis.innerHTML = productData.description;
-          cellPocetKusu.innerHTML = productData.stockCount;
-          cellId.innerHTML = childSnapshot.key;
-          
-          products.push(productData);
-          
-          selectList.innerHTML += '<option value="' + childSnapshot.key + '">' + productData.name + '</option>';
-          removeSelectList.innerHTML += '<option value="' + childSnapshot.key + '">' + productData.name + '</option>';
-            
-        
-          
-       });
-    })
-    .catch(error => {
-      console.error('Error fetching products:', error);
-    });
-    
-    //console.log(products);
-    return products;
+	return products;
 }
 function addPocetSklad() {
-  var productId = document.getElementById("skladInsertSelect").value;
-  var newCount = parseInt(document.getElementById("addCountProduct").value); 
-  //console.log(productId)
- 
+	var productId = document.getElementById("skladInsertSelect").value;
+	var newCount = parseInt(document.getElementById("addCountProduct").value); 
   
-  if (!isNaN(newCount) && newCount >= 0) {
-      
-      var productRef = database.ref('products/' + productId); 
-
-      productRef.transaction((product) => {
-          if (product) {
-              product.stockCount += newCount; 
-              location.reload("sklad.html")
-          }		  
-          return product; 
-          
-      }, (error, committed, snapshot) => {
-          if (error) {
-              console.error('Transaction failed abnormally!', error);
-          } else if (!committed) {
-              console.error('We aborted the transaction (because product does not exist).');
-          } else {
-              console.log('Stock count updated!');
-          }
-          console.log("Snapshot of data: ", snapshot.val());
-      });
-  } else {
-      console.error("Invalid count value");
-     
-  }
-  
-  
+	if (!isNaN(newCount) && newCount >= 0) {
+		var productRef = database.ref('products/' + productId);
+		productRef.transaction((product) => {
+			if (product) {
+				product.stockCount += newCount; 
+				location.reload("sklad.html");
+			} 
+			return product;
+		}, (error, committed, snapshot) => {
+			if (error) {
+				console.error('Transaction failed abnormally!', error);
+			} else if (!committed) {
+				console.error('We aborted the transaction (because product does not exist).');
+			} else {
+				console.log('Stock count updated!');
+			}
+			console.log("Snapshot of data: ", snapshot.val());
+		});
+	} else {
+		console.error("Invalid count value");     
+	}  
 }
 function removePocetSklad() {
-  var productId = document.getElementById("skladRemoveSelect").value;
-  var newCount = parseInt(document.getElementById("removeCountProduct").value); 
-  //console.log(productId)
- 
+	var productId = document.getElementById("skladRemoveSelect").value;
+	var newCount = parseInt(document.getElementById("removeCountProduct").value);
   
-  if (!isNaN(newCount) && newCount > 0) {  
-      
-      var productRef = database.ref('products/' + productId); 
+	if (!isNaN(newCount) && newCount > 0) {       
+		var productRef = database.ref('products/' + productId); 
 
-      productRef.transaction((product) => {
-          if (product) {
-            if(product.stockCount > 0)
-              product.stockCount -= newCount; 
-              location.reload("sklad.html")   
-          }		  
-          return product; 
-      }, (error, committed, snapshot) => {
-          if (error) {
-              console.error('Transaction failed abnormally!', error);
-          } else if (!committed) {
-              console.error('We aborted the transaction (because product does not exist).');
-          } else {
-              console.log('Stock count updated!');
-          }
-          console.log("Snapshot of data: ", snapshot.val());
-      });
-  } else {
-      console.error("Invalid count value");
-      // Handle invalid input (e.g., not a number or negative number)
-  }
-  
-  
+		productRef.transaction((product) => {
+			if (product) {
+				if(product.stockCount > 0){
+					product.stockCount -= newCount; 
+					location.reload("sklad.html")   
+				}
+			}
+			return product; 
+		}, (error, committed, snapshot) => {
+			if (error) {
+				console.error('Transaction failed abnormally!', error);
+			} else if (!committed) {
+				console.error('We aborted the transaction (because product does not exist).');
+			} else {
+				console.log('Stock count updated!');
+			}
+			console.log("Snapshot of data: ", snapshot.val());
+		});
+	} else {
+		console.error("Invalid count value");      
+	} 
+}
+function addRowCells(table,count){
+	var row = table.insertRow();
+	for (let i = 0; i < count; i++) {
+		row.insertCell(i);
+	}
+	return row;
+}	
+function setCellText(row,indexCell,txt){
+	row.cells[indexCell].innerHTML = txt;	
 }
 
 
