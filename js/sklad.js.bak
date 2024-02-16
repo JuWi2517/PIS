@@ -47,7 +47,7 @@ function fetchProducts(id){
 			var cellRemove = '<input class="btn btn-danger"type="submit" value="Smazat">';
 			var cellEdit = '<a href="#" class="btn btn-primary">Editovat</a>';
 			
-			var row = addRowCells(table,7); 
+			var row = addRowCells(table,8); 
 			setCellText(row,0,cellOBR);	
 			setCellText(row,1,productData.name);	
 			setCellText(row,2,productData.description);	
@@ -60,7 +60,7 @@ function fetchProducts(id){
 			totalPrice += totalPriceProduct;
 			    
 		});
-		var row = addRowCells(table,7); 
+		var row = addRowCells(table,8); 
 		setCellText(row,5,totalPrice + " Kč");		
 	})
 	.catch(error => {

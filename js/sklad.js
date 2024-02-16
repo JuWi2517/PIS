@@ -58,6 +58,8 @@ function fetchProducts(id){
 			setCellText(row,7,cellRemove);				
 
 			totalPrice += totalPriceProduct;
+			selectList.innerHTML += '<option value="' + childSnapshot.key + '">' + productData.name + '</option>';
+          removeSelectList.innerHTML += '<option value="' + childSnapshot.key + '">' + productData.name + '</option>';
 			    
 		});
 		var row = addRowCells(table,8); 
