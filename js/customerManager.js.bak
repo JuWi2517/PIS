@@ -210,7 +210,7 @@ function isCustomer(id){
 			loginSection.style.display = "none";
 			loginSection2.style.display = "none";
 			userSection.style.display = "block";
-			userSectionA.href = "showProfileUzivatel.html?id=" + snapshot.key;
+			userSectionA.href = "showProfileUzivatel?id=" + snapshot.key;
 			
 			console.log("je zakaznik");
 			return true;

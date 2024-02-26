@@ -303,7 +303,7 @@ function deleteMaterialBySuplier(idSuplier){
 	
 }
 function orderMaterialSupplier(idMaterial,idSupplier){
-	var count = document.getElementById('order' + idMaterial).value;
+	var count = document.getElementById('order' + idMaterial);
 	console.log("objednat " + count );
 }
 

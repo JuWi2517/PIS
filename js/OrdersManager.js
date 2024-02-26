@@ -17,7 +17,7 @@ if (!firebase.apps.length) {
 const database = firebase.database();
 const storage = firebase.storage().ref();	
  
-function createSupplier() {
+function createOrder() {
 	const supplierName = document.getElementById('sName').value;
 	const supplierPerson = document.getElementById('sPerson').value;
 	const supplierEmail = document.getElementById('sEmail').value;
@@ -37,7 +37,7 @@ function createSupplier() {
 	window.location.href = "dodavatele.html";
 	
 }
-function updateSupplier(id,data){
+function updateOrder(id,data){
 	  
 	const supplierName = document.getElementById('sName').value;
 	const supplierPerson = document.getElementById('sPerson').value;
@@ -59,13 +59,13 @@ function updateSupplier(id,data){
 		});
 	window.location.href = "dodavatele.html";
 }
-function deleteSupplier(productId) {
+function deleteOrder(productId) {
 	const productRef = database.ref('suppliers/' + productId);
 	productRef.remove();
 	location.reload("dodavatele.html");
 }
   
-function getSupplierById(container,id){
+function getOrderById(container,id){
 	const supplierName = document.getElementById('sName');
 	const supplierPerson = document.getElementById('sPerson');
 	const supplierEmail = document.getElementById('sEmail');
@@ -92,7 +92,7 @@ function getSupplierById(container,id){
 		console.error('Error fetching products:', error);
 	});  
 }
-function getAllSuppliers(container){
+function getAllOrders(container){
 	const products = new Array();
 	var table = document.getElementById(container);
 	table.innerHTML = "";
@@ -133,24 +133,6 @@ function getAllSuppliers(container){
 	return products;
 
 }	
-function getAllSuppliersSelect(container){
-		const products = new Array();	  
-		var selectList = document.getElementById(container);
-        
-		database.ref('suppliers').once('value')
-		.then(snapshot => {
-			snapshot.forEach(childSnapshot => {
-			const supplierData = childSnapshot.val();         
-		  
-			selectList.innerHTML += '<option value="' + childSnapshot.key + '">' + supplierData.name + '</option>';   
-		});  
-	})
-	.catch(error => {
-		console.error('Error fetching products:', error);
-	});
-    
-	return products;	  
-}
 function addRowCells(table,count){
 	var row = table.insertRow();
 	for (let i = 0; i < count; i++) {

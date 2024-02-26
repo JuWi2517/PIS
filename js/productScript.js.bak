@@ -45,8 +45,8 @@ function addProduct() {
 			});
 
         
-			//const card = createBootstrapCard(productName, downloadURL, productDescription, productPrice, productId);
-			//document.getElementById('productList').insertAdjacentHTML('beforeend', card);     
+			const card = createBootstrapCard(productName, downloadURL, productDescription, productPrice, productId);
+			document.getElementById('productList').insertAdjacentHTML('beforeend', card);     
 			window.location.href = "skladZbozi.html";					
 			})
 		.catch(error => {

@@ -110,9 +110,8 @@ function getAllSuppliers(container){
 			const supplierData = childSnapshot.val();          
 		  
 			var cellUpdate = '<a href="editDodavatel.html?id=' + childSnapshot.key + '" class="btn btn-primary">Editovat</a>';
-			var cellShow= '<a href="showDodavatel.html?id=' + childSnapshot.key + '" class="btn btn-primary">Ukázat</a>';
 			var cellRemove = '<input class="btn btn-danger" type="submit" onclick="deleteSupplier(\'' + childSnapshot.key + '\');" value="Smazat">';  
-			var row = addRowCells(table,9); 
+			var row = addRowCells(table,8); 
 			setCellText(row,0,supplierData.name);	
 			setCellText(row,1,supplierData.person);	
 			setCellText(row,2,supplierData.adress);	
@@ -120,8 +119,7 @@ function getAllSuppliers(container){
 			setCellText(row,4,supplierData.phone);
 			setCellText(row,5,supplierData.bank_account);
 			setCellText(row,6,cellUpdate);
-			setCellText(row,7,cellShow);
-			setCellText(row,8,cellRemove);
+			setCellText(row,7,cellRemove);
 			
 		});
 			   

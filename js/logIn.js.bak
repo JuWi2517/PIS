@@ -65,7 +65,7 @@ const login = (email, password) => {
 	auth.signInWithEmailAndPassword(email, password)      
 	.then((userCredential) => {
 		console.log('User logged in:', userCredential.user.uid);
-		window.location.href = 'index.html?userid=' +  userCredential.user.uid;
+		window.location.href = 'index.html';
 	})
 	.catch((error) => {
 		alert("Špatný email nebo heslo")
