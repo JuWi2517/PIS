@@ -45,14 +45,12 @@ function addProduct() {
 			});
 
         
-			//const card = createBootstrapCard(productName, downloadURL, productDescription, productPrice, productId);
-			//document.getElementById('productList').insertAdjacentHTML('beforeend', card);     
-			window.location.href = "skladZbozi.html";					
+			const card = createBootstrapCard(productName, downloadURL, productDescription, productPrice, productId);
+			document.getElementById('productList').insertAdjacentHTML('beforeend', card);       
 			})
 		.catch(error => {
 			console.error('Error uploading image:', error);
-		});  
-	//window.location.href = "skladZbozi.html";		
+		});       
 }
     
     
