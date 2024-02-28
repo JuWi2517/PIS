@@ -1,18 +1,6 @@
 
 
-function addToCart(product) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    // Assume product does not have a unique ID and use a combination of name and price as a unique identifier
-    let productIdentifier = `${product.name}-${product.price}`;
-    let found = cart.find(p => `${p.name}-${p.price}` === productIdentifier);
-    if (found) {
-        found.quantity += 1;
-    } else {
-        product.quantity = 1;
-        cart.push(product);
-    }
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
+
 
 function displayCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -23,9 +11,8 @@ function displayCart() {
         const itemElement = document.createElement('div');
         itemElement.innerHTML = `
             <h3>${item.name}</h3>
-            
-            <img src="${item.image}" alt="${item.name}" style="width: 100px;">
             <p>Quantity: <span id="quantity-${index}">${item.quantity}</span></p>
+            <img src="${item.image}" alt="${item.name}" style="width: 100px;">
             <button onclick="changeQuantity(${index}, 1)">+</button>
             <button onclick="changeQuantity(${index}, -1)">-</button>
             <button onclick="removeFromCart(${index})">Remove</button>
@@ -33,6 +20,12 @@ function displayCart() {
         cartContents.appendChild(itemElement);
     });
 }
+
+// Call displayCart when the page loads
+if (document.getElementById('cartContents')) {
+    displayCart();
+}
+
 
 function changeQuantity(index, delta) {
     let cart = JSON.parse(localStorage.getItem('cart'));
@@ -57,4 +50,7 @@ function removeFromCart(index) {
 
 if (document.getElementById('cartContents')) {
     displayCart();
+}
+function toOrder(){
+    window.location.href = 'ordering.html'
 }

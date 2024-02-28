@@ -80,7 +80,8 @@
 		const product = urlParams.get('id')
 		getProduktById("zkouska",product);		
 		
-		//console.log("id product" + product);
+		const button = document.getElementById('buyButton');
+    button.setAttribute('data-product-id', product);
 	</script>
 
   
