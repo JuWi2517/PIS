@@ -18,7 +18,7 @@ if (!firebase.apps.length) {
 const database = firebase.database();
 const storage = firebase.storage().ref();
  
-function createFaktura() {
+function createFaktura(id) {
 	const materialName = document.getElementById('mName').value;
 	const materialDescription = document.getElementById('mDescription').value;
 	const materialPrice = document.getElementById('sPrice').value;

@@ -45,12 +45,14 @@ function addProduct() {
 			});
 
         
-			const card = createBootstrapCard(productName, downloadURL, productDescription, productPrice, productId);
-			document.getElementById('productList').insertAdjacentHTML('beforeend', card);       
+			//const card = createBootstrapCard(productName, downloadURL, productDescription, productPrice, productId);
+			//document.getElementById('productList').insertAdjacentHTML('beforeend', card);     
+			window.location.href = "skladZbozi.html";					
 			})
 		.catch(error => {
 			console.error('Error uploading image:', error);
-		});       
+		});  
+	//window.location.href = "skladZbozi.html";		
 }
     
     
@@ -92,7 +94,7 @@ function fetchAndDisplayProducts() {
 	});
 }
 
-document.getElementById('productForm').addEventListener('submit', addProduct);
+
 
 function deleteProduct(productId) {
 	const productRef = database.ref('products/' + productId);

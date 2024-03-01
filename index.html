@@ -18,9 +18,9 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="js/productScript.js"></script>
+  <script src="js/customerManager.js"></script>
   <script src="js/checkRoles.js"></script>
-  <script src="js/logIn.js"></script>
-  <script src="js/checkSign.js"></script>
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   
     <div class="navBar">
@@ -40,11 +40,20 @@
                   <li class="nav-item">
                     <a id="admin" style="display: none;" class="nav-link active" aria-current="page" href="admin.html">Admin</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" id="loginSection">
                     <a class="nav-link active" aria-current="page" href="login.html">Login</a>
+                  </li>
+				  <li class="nav-item" id="loginSection2">
+                    <a class="nav-link active" aria-current="page" href="loginCustomer.html">Přihlásit se</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="kosik.html">Košík</a>
+                  </li>
+				  <li class="nav-item" id="adminSection">
+                    <a class="nav-link active" aria-current="page" href="admin.html">Admin</a>
+                  </li>
+				  <li class="nav-item" id="userSection">
+                    <a class="nav-link active" id="userSectionA" aria-current="page" href="">Uživatelská sekce</a>
                   </li>
                 </ul> 
               </div>
@@ -60,7 +69,18 @@
 
     <div id="productList" style="display: flex; flex-wrap: wrap; justify-content: center;">
 		<script type="text/javascript">
+			const queryString = window.location.search;		
+			const urlParams = new URLSearchParams(queryString);
+			const product = urlParams.get('userid');
+			const adminSection = document.getElementById('adminSection');
+			
 			fetchAndDisplayProducts();
+			if(isCustomer(product)){
+				adminSection.style.display = "none";
+			} else {
+				adminSection.style.display = "block";
+			}
+			
 		</script>
 	</div>
   

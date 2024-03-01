@@ -1,0 +1,222 @@
+{
+  "customers": {
+    "iqBLp0eh0DOHtdrf3QGZsgJymvo2": {
+      "city": "aa",
+      "email": "a@it.it",
+      "name": "aa",
+      "postalCode": "aa",
+      "street": "aa",
+      "tel": "aa",
+      "uid": "iqBLp0eh0DOHtdrf3QGZsgJymvo2"
+    }
+  },
+  "employyes": {
+    "-NrGULhhfiHiBgu2ko1Q": {
+      "adress": "aa",
+      "bank_account": "ab",
+      "email": "aa",
+      "name": "aa",
+      "phone": "aa",
+      "salary": "aa"
+    }
+  },
+  "materials": {
+    "-NqOQ4GWQjJF3zZZ2sFT": {
+      "description": "asfasfas",
+      "name": "asfasfa",
+      "price": "50",
+      "stock": 0,
+      "supplier": "-NqX8Owhr6_-pV6DSnw7",
+      "unit": "asdsaf"
+    },
+    "-NqSvXOq1XvEcriGlU2Q": {
+      "description": "b",
+      "name": "a",
+      "price": 12,
+      "stock": 0,
+      "supplier": "-NqC_vhWY5RJEDTZKknS",
+      "unit": "c"
+    },
+    "-NqXE516-i8--mVtqgkd": {
+      "description": "material 3",
+      "name": "material 2",
+      "price": "200",
+      "stock": 20,
+      "supplier": "-NqX8Owhr6_-pV6DSnw7",
+      "unit": "kg"
+    },
+    "-Nqao5l8cQIADadYbOy2": {
+      "description": "sdfdhildf",
+      "name": "dslkkhdsf",
+      "price": "56",
+      "stock": 0,
+      "supplier": "-NqX8Owhr6_-pV6DSnw7",
+      "unit": "kg"
+    },
+    "-NqcNlcwZpOMAxmuOWQB": {
+      "description": "mat1",
+      "name": "mat1",
+      "price": "12",
+      "stock": 0,
+      "supplier": "-NqX8Owhr6_-pV6DSnw7",
+      "unit": "kg"
+    },
+    "-NqcOPtytsRIbsUfGNgG": {
+      "description": "mat2",
+      "name": "mat2",
+      "price": "60",
+      "stock": 0,
+      "supplier": "-NqX8Owhr6_-pV6DSnw7",
+      "unit": "a"
+    }
+  },
+  "orders": {
+    "-NrKeHq7IKrtPYhjj2FM": {
+      "items": [
+        {
+          "productId": "-NnKuNzDZjBWKZWvu7tz",
+          "quantity": 1
+        },
+        {
+          "productId": "-NrKFB1gasVo5RsgL8li",
+          "quantity": 1
+        },
+        {
+          "productId": "-NrKGbbyOSH0_-6AmoyB",
+          "quantity": 1
+        }
+      ],
+      "paid": false,
+      "timestamp": 1708686644134
+    },
+    "-NrKeI1aUURF-iTeB_ku": {
+      "items": [
+        {
+          "productId": "-NnKuNzDZjBWKZWvu7tz",
+          "quantity": 1
+        },
+        {
+          "productId": "-NrKFB1gasVo5RsgL8li",
+          "quantity": 1
+        },
+        {
+          "productId": "-NrKGbbyOSH0_-6AmoyB",
+          "quantity": 1
+        }
+      ],
+      "paid": false,
+      "timestamp": 1708686644136
+    },
+    "-NrKhw-BlbMNPwq-DvCJ": {
+      "items": [
+        {
+          "productId": "-NnKucPGl6r2s7BVP2LM",
+          "quantity": 1
+        }
+      ],
+      "paid": true,
+      "timestamp": 1708687598059
+    }
+  },
+  "products": {
+    "-NnKuNzDZjBWKZWvu7tz": {
+      "description": "svfddfvvsdf",
+      "id": "-NnKuNzDZjBWKZWvu7tz",
+      "imageName": "1704395982013-Screenshot 2023-12-10 163511.png",
+      "imageURL": "https://firebasestorage.googleapis.com/v0/b/projectinfosystem-c7a40.appspot.com/o/product_images%2F1704395982013-Screenshot%202023-12-10%20163511.png?alt=media&token=1b166323-4a9c-468c-adee-877c9d9eaaae",
+      "name": "mikina",
+      "price": "451",
+      "stockCount": 1299
+    },
+    "-NnKucPGl6r2s7BVP2LM": {
+      "description": "fgnfgnssfnfhn",
+      "id": "-NnKucPGl6r2s7BVP2LM",
+      "imageName": "1704395966097-Screenshot 2023-07-24 145146.png",
+      "imageURL": "https://firebasestorage.googleapis.com/v0/b/projectinfosystem-c7a40.appspot.com/o/product_images%2F1704395966097-Screenshot%202023-07-24%20145146.png?alt=media&token=9c4b81f2-d171-4473-a2d5-31102cb654c9",
+      "name": "tričko ",
+      "price": "8",
+      "stockCount": 45
+    },
+    "-NrKDgKgGlIBxshpatC9": {
+      "description": "aaa",
+      "id": "-NrKDgKgGlIBxshpatC9",
+      "imageName": "1708679411369--NFjXPPZARR6B4GiPCN4uXT0x-NT-EfE4lgYyq3u2QI.jpg",
+      "imageURL": "https://firebasestorage.googleapis.com/v0/b/projectinfosystem-c7a40.appspot.com/o/product_images%2F1708679411369--NFjXPPZARR6B4GiPCN4uXT0x-NT-EfE4lgYyq3u2QI.jpg?alt=media&token=aca82511-9101-4dfd-b87c-0369e395ac9f",
+      "name": "big HotOcto",
+      "price": "500",
+      "stockCount": 0
+    },
+    "-NrKFB1gasVo5RsgL8li": {
+      "description": "sdh",
+      "id": "-NrKFB1gasVo5RsgL8li",
+      "imageName": "1708679807148-ledoborec-ivan___600x600_500-360.jpg",
+      "imageURL": "https://firebasestorage.googleapis.com/v0/b/projectinfosystem-c7a40.appspot.com/o/product_images%2F1708679807148-ledoborec-ivan___600x600_500-360.jpg?alt=media&token=cfd1cc9b-4a3f-4e5b-b4bc-b6aa409fd58b",
+      "name": "klasjlfk",
+      "price": "500",
+      "stockCount": 0
+    },
+    "-NrKG5RIzLQyX06BoxFt": {
+      "description": "rsgsrg",
+      "id": "-NrKG5RIzLQyX06BoxFt",
+      "imageName": "1708680046355-13330965_10201591638510766_9214362074682199020_n.jpg",
+      "imageURL": "https://firebasestorage.googleapis.com/v0/b/projectinfosystem-c7a40.appspot.com/o/product_images%2F1708680046355-13330965_10201591638510766_9214362074682199020_n.jpg?alt=media&token=2428922d-f886-409c-bb88-0a2fe21d0fab",
+      "name": "asdfas",
+      "price": "500",
+      "stockCount": 0
+    },
+    "-NrKGbbyOSH0_-6AmoyB": {
+      "description": "dgfgaf",
+      "id": "-NrKGbbyOSH0_-6AmoyB",
+      "imageName": "1708680178486-13444536_10206042577973914_913667483_n.gif",
+      "imageURL": "https://firebasestorage.googleapis.com/v0/b/projectinfosystem-c7a40.appspot.com/o/product_images%2F1708680178486-13444536_10206042577973914_913667483_n.gif?alt=media&token=e06293a2-9e73-4303-a9fa-6353db129d7d",
+      "name": "asdadsasasdaaaaa",
+      "price": "500",
+      "stockCount": "0"
+    },
+    "-NrKGqM9mT2Gqai6SK_k": {
+      "description": "hahta",
+      "id": "-NrKGqM9mT2Gqai6SK_k",
+      "imageName": "1708680242634-1474554_215212285480399_3160899802838716657_n.jpg",
+      "imageURL": "https://firebasestorage.googleapis.com/v0/b/projectinfosystem-c7a40.appspot.com/o/product_images%2F1708680242634-1474554_215212285480399_3160899802838716657_n.jpg?alt=media&token=fcabb245-5782-42b5-9c23-5a6657e4ed2a",
+      "name": "hathtrh",
+      "price": "500",
+      "stockCount": 0
+    }
+  },
+  "suppliers": {
+    "-NqX8Owhr6_-pV6DSnw7": {
+      "adress": "nekde",
+      "bank_account": "nekde",
+      "email": "a@a.cz",
+      "name": "Dodavatel D",
+      "person": "neco",
+      "phone": "777666555"
+    },
+    "-NrGULhhfiHiBgu2ko1Q": {
+      "adress": "aa",
+      "bank_account": "ab",
+      "email": "aa",
+      "name": "aa",
+      "phone": "aa",
+      "salary": "aa"
+    }
+  },
+  "users": {
+    "CRuZDigALbfU2J15udR3R91cTKl1": {
+      "email": "a@a.cz",
+      "uid": "CRuZDigALbfU2J15udR3R91cTKl1"
+    },
+    "Cb75e6ukawXpO5NrNn5B8qAF6O83": {
+      "email": "jenik.richter@gmail.co",
+      "uid": "Cb75e6ukawXpO5NrNn5B8qAF6O83"
+    },
+    "hKHH2Kfig0TntAaNSrIveZ0QkTF3": {
+      "email": "jenik.richter@gmail.com",
+      "uid": "hKHH2Kfig0TntAaNSrIveZ0QkTF3"
+    },
+    "oTJcKEdxmugvEiCVftg77lv3sWC3": {
+      "email": "janrichter@spsezatec.cz",
+      "uid": "oTJcKEdxmugvEiCVftg77lv3sWC3"
+    }
+  }
+}

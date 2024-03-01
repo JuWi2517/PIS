@@ -73,7 +73,7 @@ function deleteMaterial(id) {
 }
   
 function getMaterialById(container,id){	
-var database = firebase.database();
+	var database = firebase.database();
 	const con = document.getElementById(container);
 	
 	//const productRef = database.ref('products/' + id);
@@ -146,6 +146,55 @@ function getAllMaterials(container){
 			setCellText(row,5,materialPrice + " Kč");
 			setCellText(row,6,editMaterialButton);
 			setCellText(row,7,removeMaterialButton);			
+			
+		});
+		
+		var row = addRowCells(table,7); 
+		setCellText(row,5, totalPrice + " Kč");
+		
+	})
+	.catch(error => {
+		console.error('Error fetching products:', error);
+	});
+}	
+function getAllMaterialsBySupplier(container,idSupplier){
+	var database = firebase.database();
+	const products = new Array();
+	var table = document.getElementById(container);
+	
+	var totalPrice = 0;
+	table.innerHTML = "";
+	
+	var row = addRowCells(table,7); 
+	setCellText(row,0,"Název");	
+	setCellText(row,1,"Popis");	
+	setCellText(row,2,"Dodavatel");	
+	setCellText(row,3,"Cena za jednotku");
+	setCellText(row,4,"Jednotek na skladu");
+	setCellText(row,5,"Celková cena materiálu");	
+	
+	database.ref('materials').once('value')
+	.then(snapshot => {
+		snapshot.forEach(childSnapshot => {
+			const materialData = childSnapshot.val();			
+			if(materialData.supplier == idSupplier){
+				var materialPrice = materialData.stock * materialData.price;
+				var removeMaterialButton = '<input class="btn btn-danger"type="submit" onclick="deleteMaterial(\'' + childSnapshot.key + '\');" value="Smazat">';
+				var orderMaterialButton = '<input type="number" id="order' + childSnapshot.key + '"><input class="btn btn-primary"type="submit" onclick="orderMaterialSupplier(\''+ childSnapshot.key + '\',\'' + idSupplier + '\')" value="Objednat">';
+				var editMaterialButton = '<a href="editMaterial.html?id=' + childSnapshot.key + '" class="btn btn-primary">Editovat</a>';
+				totalPrice += materialPrice;
+			
+				var row = addRowCells(table,9); 
+				setCellText(row,0,materialData.name);	
+				setCellText(row,1,materialData.description);	
+				setCellText(row,2,materialData.supplier);	
+				setCellText(row,3,materialData.price + " Kč /" + materialData.unit);
+				setCellText(row,4,materialData.stock);
+				setCellText(row,5,materialPrice + " Kč");
+				setCellText(row,6,editMaterialButton);
+				setCellText(row,7,orderMaterialButton);
+				setCellText(row,8,removeMaterialButton);
+			}			
 			
 		});
 		
@@ -233,6 +282,31 @@ function getAllSelect(container){
 		console.error('Error fetching products:', error);
 	});    
 }
+function deleteMaterialBySuplier(idSuplier){
+	var database = firebase.database();
+	
+	
+	database.ref('materials').once('value')
+	.then(snapshot => {
+		snapshot.forEach(childSnapshot => {
+			const materialData = childSnapshot.val();			
+			if(materialData.supplier == idSupplier){
+				deleteMaterial(childSnapshot.key);
+			}			
+			
+		});
+		
+	})
+	.catch(error => {
+		console.error('Error deleting products:', error);
+	});
+	
+}
+function orderMaterialSupplier(idMaterial,idSupplier){
+	var count = document.getElementById('order' + idMaterial).value;
+	console.log("objednat " + count );
+}
+
 function addRowCells(table,count){
 	var row = table.insertRow();
 	for (let i = 0; i < count; i++) {

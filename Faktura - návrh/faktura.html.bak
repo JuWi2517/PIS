@@ -1,0 +1,110 @@
+<html>
+    <head>
+    
+    </head>
+    
+    <body>
+        <div id="faktura" style="border:1px solid;">
+            <div id="údaje" style="display:table;width:99%;margin:5px;    margin-bottom: 100px;">
+                <div id="column1" style="display:table-cell">
+                    <div id="logo" style="display: block;text-align: center;height: 100px;">
+						<img src="https://spsezatec.cz/images/logo/spse.jpg" alt="Bootstrap" style="height: inherit; width: auto;">
+					</div>
+                    <div id="dodavatel" style="display: block;background-color:#167FB8;color:white;height: 100px;"> 
+						<div id="dodavatelHeader" style="margin-left:5px;">
+						Dodavatel
+						</div>
+						<div id="dodavatelAdresa" style="margin:5px;">
+						SPŠE Žatec<br>
+						Svatováclavská 1404<br>
+						438 01 Žatec<br>
+						IÈ: 25115138
+						</div>
+					</div> 
+                    <div id="platba" style="display: block;height: 100px;margin:5px;">
+						Bankovní úèet: 1234/1234<br>
+						Variabilní symbol: 1231234<br>
+						Zpùsob platby: Pøevod
+					</div>               
+                </div>
+                
+                <div id="column2" style="display:table-cell">
+                    <div id="fakturaId" style="display: block;text-align: center;height: 100px;background-color:#167FB8;color:white;position: relative;top: -85px;">
+						<div>Nìjaký hash</div>
+						Daòový doklad
+					</div>
+                    <div id="odberatel" style="display: block;position: relative;top: -85px;height: 100px;">
+						<div id="odberatelHeader" style="margin-left:5px;">
+						Odbìratel
+						</div>
+						<div id="odberatelAdresa" style="margin:5px;">
+						Jakub Šimùnek<br>
+						V zahradách 2200<br>
+						438 01 Žatec
+						</div>
+					</div>   
+                    <div id="datumy" style="display: block;background-color:#167FB8;color:white;height: 100px;position: relative;top: -90px;">
+						<div style="margin:5px;">
+							Datum vystavení: 20.12.2018<br>
+							Datum splatnosti: 03.01.2019<br>
+							Datum zdan. plnìní: 20.12.2018	
+						</div>
+					</div>   
+                </div>
+            
+            </div>
+			
+			<div id="polozky" style="margin-bottom: 100px;">
+			<h2 style="text-align:center;">Fakturujeme následující položky</h2>
+			<table style="display:table;width:100%;margin:20px;">
+				<tr>
+					<td>Zboží</td>
+					<td>DPH</td>
+					<td>Cena za kus bez DPH</td>
+					<td>Cena za kus s DPH</td>
+					<td>Poèet kusù</td>
+					<td>Cena Celkem</td>
+				</tr>
+				<tr>
+					<td>Mikina</td>
+					<td>18%</td>
+					<td>100</td>
+					<td>82</td>
+					<td>10</td>
+					<td>1000</td>
+				</tr>
+			</table>
+        </div>
+		
+		<div style="display:table;margin-bottom: 100px;width:100%">
+			<div style="display:table-cell;"></div>
+			<div id="celkem" style="display:table-cell;">
+			<table style="display:table;width:100%;margin:20px;">
+				<tr>
+					<td>Sazba</td>
+					<td>Základ</td>
+					<td>DPH</td>					
+				</tr>
+				<tr>
+					<td>18%</td>
+					<td>820</td>
+					<td>180</td>					
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td>1000 Kè</td>					
+				</tr>
+			</table>
+			
+        </div>
+		</div>
+       
+        <div id="podpis" style="margin-bottom: 100px;text-align: right;margin-right: 40px;">
+			Nìjaký podpis
+        </div>
+        </div>
+        
+    </body>
+
+</html>

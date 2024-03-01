@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/mainStyle.css">
+    <title>Dodavatelé</title>
+	<script type="text/javascript" src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="js/customerManager.js"></script>
+  <script type="text/javascript" src="js/OrdersManager.js"></script>
+	
+	
+			
+		
+		  
+	  
+</head>
+<body>
+		
+  
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+ 
+  <script src="js/logIn.js"></script>
+  <script src="js/checkRoles.js"></script>
+  <script src="js/checkSign.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  
+  
+		  
+    <div class="navBar">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="https://spsezatec.cz/images/logo/spse.jpg" alt="Bootstrap" width="60" height="30">
+                </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="admin.html">Admin</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="login.html">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="kosik.html">Košík</a>
+                  </li>
+				  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="skladZbozi.html">Sklad Zboží</a>
+                  </li>
+				  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="skladMaterial.html">Sklad Materiál</a>
+                  </li>
+				  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="dodavatele.html">Dodavatelé</a>
+                  </li>
+				    <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="zamestnanci.html">Zaměstnanci</a>
+              </li>
+			  <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="uzivatele.html">Uživatelé</a>
+              </li>
+                </ul>
+              </div>
+            </div>
+          </nav>         
+    </div>
+	
+	  <h1 style="text-align: center; margin: 3%;">Informace o Objednávce</h1>
+	  <input type="text" style="display:none;" id="orderId">
+	  <table>
+		<tr>
+		 <td>Uživatel</td>
+		 <td id="orderUser"></td>
+		</tr>
+		<tr>
+		 <td>Datum</td>
+		 <td id="orderDate"></td>
+		</tr>
+		<tr>
+		 <td>Celková cena</td>
+		 <td id="sumPrice"></td>
+		</tr>
+		<tr>
+		 <td>Stav platby</td>
+		 <td>
+			<select id="orderState">
+				<option value="true">Zaplaceno</option>
+				<option value="false">Čekání na platbu</option>
+			</select>
+		 </td>
+		</tr>		
+	  
+	  </table>
+	  
+	  <h2 style="text-align: center;margin: 3%;">Položky</h2>
+	  <table id="itemsOrderTable"></table>
+	
+				
+		 <button type="submit" id="editOrderButton" class="btn btn-primary">Změnit</button>
+        
+	
+		
+
+		<script>
+			const queryString = window.location.search;		
+			const urlParams = new URLSearchParams(queryString);
+			const product = urlParams.get('id')
+			getOrderById("itemsOrderTable",product);
+			
+		
+		
+		
+		</script>
+		
+	  		 
+			  
+		  
+		
+</body>
+</html>

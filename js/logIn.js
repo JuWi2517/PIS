@@ -16,7 +16,7 @@ if (!firebase.apps.length) {
 	firebase.app(); // if already initialized, use that one
 }
   
-const auth = firebase.auth();
+var auth = firebase.auth();
 var database = firebase.database();
   
 function isValidEmail(email) {
@@ -65,7 +65,7 @@ const login = (email, password) => {
 	auth.signInWithEmailAndPassword(email, password)      
 	.then((userCredential) => {
 		console.log('User logged in:', userCredential.user.uid);
-		window.location.href = 'index.html';
+		window.location.href = 'index.html?userid=' +  userCredential.user.uid;
 	})
 	.catch((error) => {
 		alert("Špatný email nebo heslo")

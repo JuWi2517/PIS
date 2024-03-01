@@ -14,7 +14,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  <script src="js/sklad.js"></script>
+  <script src="js/productManager.js"></script>
   <script src="js/logIn.js"></script>
   <script src="js/checkRoles.js"></script>
   <script src="js/checkSign.js"></script>
@@ -53,6 +53,12 @@
 				  <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="dodavatele.html">Dodavatelé</a>
                   </li>
+				    <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="zamestnanci.html">Zaměstnanci</a>
+              </li>
+			  <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="uzivatele.html">Uživatelé</a>
+              </li>
                 </ul>
               </div>
             </div>
@@ -61,7 +67,7 @@
 	
 	  <h1 style="text-align: center; margin: 3%;">SKLAD Zboží</h1>
 <div style="text-align:center;">
-	   <a href="addMaterial.html" class="btn btn-primary" style="margin:25px;">Přidat Zboží</a>
+	   <a href="addZbozi.html" class="btn btn-primary" style="margin:25px;">Přidat Zboží</a>
 	   </div>
 		  <h2 style="text-align:center;">Přidat počet kusů</h2>
 		  <div id="skladInsert" style="text-align:center;margin:20px;">
@@ -77,22 +83,12 @@
 		  </div>
 
 			<h2 style="text-align:center;">Zboží na skladě</h2>
-		  <table id="storageTable">
-			<tr>
-				<td>ID</td>
-				<td>Obrázek</td>
-        <td>Název</td>
-				<td>Popis</td>
-				<td>Počet Kusů</td>	
-				<td>Cena za kus</td>	
-				<td>Celková cena</td>				
-			</tr>
-			<script type="text/javascript">
-				const products = fetchProducts("storageTable");	
-				
-			</script>
+		  <table id="storageTable">		
 		  
 		  </table> 
-		  <div id="totalP"></div>
+		  
+		  <script>
+			getAllZbozi("storageTable");
+		  </script>
 </body>
 </html>

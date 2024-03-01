@@ -66,6 +66,12 @@
 				  <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="dodavatele.html">Dodavatelé</a>
                   </li>
+				    <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="zamestnanci.html">Zaměstnanci</a>
+              </li>
+			  <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="uzivatele.html">Uživatelé</a>
+              </li>
                 </ul>
               </div>
             </div>
@@ -78,7 +84,13 @@
 		<label for="mName">Název Materiálu:</label><input type="text" id="mName" name="mName"><br>
 		<label for="mDescription">Popis materiálu:</label><input type="text" id="mDescription" name="mDescription"><br>
 		<label for="sPrice">Cena za jednotku:</label><input type="number" id="sPrice" name="sPrice"><br>
-		<label for="sUnit">Měrná jednotka:</label><input type="text" id="sUnit" name="sUnit"><br>
+		<label for="sUnit">Měrná jednotka:</label>
+		<select id="sUnit" name="sUnit">
+			<option value="kg">kg</option>
+			<option value="t">t</option>
+			<option value="ks">ks</option>
+			<option value="ks">palety</option>
+		</select>
 		<label for="mCountStock">Počet Kusů:</label><input type="number" id="mCountStock" name="mCountStock"><br>
 		<label for="sSupplier">Dodavatel:</label><select id="sSupplier" name="sSupplier"></select><br>
 		
