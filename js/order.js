@@ -19,34 +19,42 @@
 
 
 document.getElementById('submitOrder').addEventListener('click', function() {
-   
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    
+    const user = firebase.auth().currentUser; 
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
     if (cart.length === 0) {
         alert('Your cart is empty!');
         return;
     }
-    
-    
-    const orderItems = cart.map(cartItem => {
-      
-        if (!cartItem.productId || !cartItem.quantity) {
-            console.error('Invalid cart item:', cartItem);
-            return null; 
-        }
 
-        return {
-            productId: cartItem.productId,
-            quantity: cartItem.quantity
-        };
-    }).filter(item => item !== null);
-
-    
-    if (orderItems.length === 0) {
-        alert('No valid items in the cart to submit an order.');
-        return;
+    if (!user) {
+        alert('You must be logged in to place an order!');
+        return; 
     }
+
+    const orderItems = cart.map(cartItem => ({
+        productId: cartItem.productId,
+        quantity: cartItem.quantity
+    }));
+
+    const ordersRef = firebase.database().ref('orders');
+    const newOrderRef = ordersRef.push();
+
+    newOrderRef.set({
+        userId: user.uid,
+        items: orderItems,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        paid: false
+    }).then(() => {
+        localStorage.setItem('currentOrderId', newOrderRef.key);
+        alert('Order submitted successfully!');
+        localStorage.removeItem('cart');
+        window.location.href = 'orderConfirmation.html';
+    }).catch(error => {
+        console.error("Error submitting order: ", error);
+        alert('There was a problem submitting your order. Please try again.');
+    });
+});
 
     
     const ordersRef = firebase.database().ref('orders');
@@ -67,4 +75,4 @@ document.getElementById('submitOrder').addEventListener('click', function() {
         console.error("Error submitting order: ", error);
         alert('There was a problem submitting your order. Please try again.');
     });
-});
+

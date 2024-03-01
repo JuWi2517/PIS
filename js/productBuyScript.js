@@ -4,7 +4,7 @@ document.getElementById('buyButton').addEventListener('click', function() {
     const productPrice = document.getElementById('priceZbozi').innerText;
     const buyButton = document.getElementById('buyButton');
     const productId =  buyButton.getAttribute('data-product-id');
-
+    
     const product = {
         name: productName,
         image: productImage,
@@ -19,6 +19,7 @@ document.getElementById('buyButton').addEventListener('click', function() {
 
 function addToCart(product) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
     let existingProduct = cart.find(p => p.productId === product.productId);
     if (existingProduct) {
         existingProduct.quantity += 1; 

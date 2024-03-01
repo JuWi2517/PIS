@@ -4,22 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ordering Page</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="style.css"> 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="js/cart.js"></script> <!-- Link to your existing cart JavaScript file -->
-    <script src="js/order.js" defer></script> <!-- Link to your new order handling JavaScript file -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="js/cart.js"></script> 
+    <script src="js/order.js" defer></script> 
 </head>
 <body>
     <div id="orderingPage">
-        <h2>Your Cart</h2>
+        <h2>Tvé produkty</h2>
         <div id="cartContents"></div>
-        <button id="submitOrder">Submit Order</button>
+        <button id="submitOrder">Potvrdit objednávku</button>
     </div>
 
     <script>
-        // This script tag is for demonstration. Include these in your `cart.js` or `orderHandling.js`
-        document.addEventListener('DOMContentLoaded', displayCart); // Ensure cart is displayed when page loads
+       
+        document.addEventListener('DOMContentLoaded', displayCart); 
     </script>
 </body>
 </html>

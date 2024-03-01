@@ -1,7 +1,3 @@
-
-
-
-
 function displayCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartContents = document.getElementById('cartContents');
