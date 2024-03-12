@@ -75,7 +75,7 @@ function getSupplierById(container,id){
 	
 	database.ref('suppliers/' + id).once('value')
 	.then(snapshot => {
-		const supplierData = snapshot.val();
+		const employeeData = snapshot.val();
 		
 		supplierName.value = supplierData.name;
 		supplierPerson.value  = supplierData.person;

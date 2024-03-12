@@ -77,7 +77,7 @@ function updateEmployee(id,data){
 			bank_account: employeeBankAcount,
 			uid: id,
 			salary: parseInt(employeeSalary), 
-			created: parseInt(employeeTimeStamp)
+			created: employeeTimeStamp
 		});
 	window.location.href = "zamestnanci.html";
 }

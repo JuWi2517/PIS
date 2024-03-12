@@ -41,7 +41,7 @@ function createZbozi() {
 				name: productName,
 				imageURL: downloadURL,
 				description: productDescription,
-				price: parseInt(productPrice),
+				price: productPrice,
 				imageName: uniqueImageName,
 				stockCount: 0
 			});
@@ -77,9 +77,9 @@ function updateZbozi(id,data){
 			name: productName,
 			imageURL: productImagePrev,
 			description: productDescription,
-			price: parseInt(productPrice),
+			price: productPrice,
 			imageName: productImageName,
-			stockCount: parseInt(productStock)
+			stockCount: productStock
 		});
 		window.location.href = "skladZbozi.html";
 	} else {
@@ -95,9 +95,9 @@ function updateZbozi(id,data){
 					name: productName,
 					imageURL: downloadURL,
 					description: productDescription,
-					price: parseInt(productPrice),
+					price: productPrice,
 					imageName: uniqueImageName,
-					stockCount: parseInt(productStock)
+					stockCount: productStock
 			});
 			
 

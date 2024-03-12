@@ -1,78 +1,23 @@
 if (!firebase.apps.length) {
-  var firebaseConfig = {
-  	apiKey: "AIzaSyAUI9U-zSLCS-MfqF4_lYo6abwWSKuoa2s",
-  	authDomain: "projectinfosystem-c7a40.firebaseapp.com",
-  	projectId: "projectinfosystem-c7a40",
-  	storageBucket: "projectinfosystem-c7a40.appspot.com",
-  	messagingSenderId: "141548851105",
-  	appId: "1:141548851105:web:6b154365af8a97b75b05e0",
-  	measurementId: "G-4YZFYKRD9Z",
-  	databaseURL: "https://projectinfosystem-c7a40-default-rtdb.europe-west1.firebasedatabase.app/",
-  };	
-
-  firebase.initializeApp(firebaseConfig);
+	var firebaseConfig = {
+		apiKey: "AIzaSyAUI9U-zSLCS-MfqF4_lYo6abwWSKuoa2s",
+		authDomain: "projectinfosystem-c7a40.firebaseapp.com",
+		projectId: "projectinfosystem-c7a40",
+		storageBucket: "projectinfosystem-c7a40.appspot.com",
+		messagingSenderId: "141548851105",
+		appId: "1:141548851105:web:6b154365af8a97b75b05e0",
+		measurementId: "G-4YZFYKRD9Z",
+		databaseURL: "https://projectinfosystem-c7a40-default-rtdb.europe-west1.firebasedatabase.app/",
+	};
+	firebase.initializeApp(firebaseConfig);
 } else {
-  firebase.app(); // if already initialized, use that one
+	firebase.app(); // if already initialized, use that one
 }
 
 const database = firebase.database();
-const storage = firebase.storage().ref();
- 
-function createFaktura(id) {
-	const materialName = document.getElementById('mName').value;
-	const materialDescription = document.getElementById('mDescription').value;
-	const materialPrice = document.getElementById('sPrice').value;
-	const materialUnit = document.getElementById('sUnit').value;
-	const materialSupplier = document.getElementById('sSupplier').value;
 
-	const newMaterialRef = database.ref('materials').push();
-	
-	newMaterialRef.set({  
-		name: materialName,
-		description: materialDescription,
-		price: materialPrice,
-		unit: materialUnit,
-		supplier: materialSupplier,
-		stock: 0
-	});
-      
-}
-function updateFaktura(id,data){
-	  
-}
-function deleteFaktura(id) {
-}
-  
-function getFakturaById(container,id){	
-	 
-}
-function getAllFaktury(container){
-	
-}	
-  
-function getAllSelect(container){
-	const products = new Array();
-	var selectList = document.getElementById(container);
-	        
-	database.ref('materials').once('value')
-	.then(snapshot => {
-		snapshot.forEach(childSnapshot => {
-			const materialData = childSnapshot.val();
-			
-			selectList.innerHTML += '<option value="' + childSnapshot.key + '">' + materialData.name + '</option>';     
-		});
-	})
-	.catch(error => {
-		console.error('Error fetching products:', error);
-	});
-}
-	
-function printF(container){
-	console.log(container.value);
-	
-	const element = document.getElementById(container);
-	html2pdf().from(container).save();
-}
+
+
 function renderOrder(orderId) {
     var database = firebase.database();
     var orderRef = database.ref('orders').child(orderId);
@@ -162,10 +107,6 @@ function renderOrder(orderId) {
 
 
 
-
-
-
-
-  
-
-
+window.onload = function() {
+    renderOrder("-NrtMN9pZhEZ7JxCa-9m");
+};

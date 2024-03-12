@@ -61,25 +61,39 @@
 			  <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="uzivatele.html">Uživatelé</a>
               </li>
-			  <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="cashflow.html">Peněžní toky</a>
-              </li>
                 </ul>
               </div>
             </div>
           </nav>         
     </div>
 	
-	  <h1 style="text-align: center; margin: 3%;">Přidat dodavatele</h1>
-	  <div style="display:grid;margin:25px;">
+	  <h1 style="text-align: center; margin: 3%;">Editovat dodavatele</h1>
+		<div style="display:grid;margin:25px;">
+		<input type="text" id="idSupplier" style="display:none;">
 		<label for="sName">Název dodavatele:</label><input type="text" id="sName" name="sName"><br>
 		<label for="sPerson">Kontaktní osoba:</label><input type="text" id="sPerson" name="sPerson"><br>
 		<label for="sEmail">Email:</label><input type="email" id="sEmail" name="sEmail"><br>
 		<label for="sPhone">Telefon:</label><input type="text" id="sPhone" name="sPhone"><br>
 		<label for="sAddress">Adresa:</label><input type="text" id="sAddress" name="sAddress"><br>
 		<label for="sBankAccount">Bankovní účet:</label><input type="text" id="sBankAccount" name="sBankAccount"><br>
-		<input type="submit" class="btn btn-primary" onclick="createSupplier()" value="Přidat">
-	  </div>
+		<input class="btn btn-primary" type="submit" id="supplierEditButton" value="Editovat" onclick="updateSupplier(1,'')">
+		</div>
+		<script>
+		const queryString = window.location.search;		
+		const urlParams = new URLSearchParams(queryString);
+		const product = urlParams.get('id');
+		
+		var idSupplierHid = document.getElementById('idSupplier');	
+		idSupplierHid.value = product;
+		
+		getSupplierById("zkouska",product);
+		
+		
+		
+		
+		
+		</script>
+	  
 		
 </body>
 </html>

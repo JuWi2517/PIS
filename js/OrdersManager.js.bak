@@ -143,27 +143,37 @@ function getAllOrders(container){
 			setCellText(row,1,childSnapshot.key);
 			setCellText(row,2,new Date(supplierData.timestamp).toUTCString());
 			
-			setCellText(row,3,supplierData.items.length);			
+			setCellText(row,3,supplierData.items.length);
+			
+			/*
+			for(var key in supplierData.items){
+				console.log(key);
+			}
+			*/
 			
 			var price = 0;
 			for(let i = 0; i < supplierData.items.length; i++) {
 				let obj = supplierData.items[i];
 				var productRef = database.ref('products/' + obj.productId);
 				
+				//console.log(obj);
 				
 				productRef.once('value').then(snapshot => {
 					var productData = snapshot.val();
+					//console.log(productData);
 					price += productData.price * obj.quantity;
 					setCellText(row,3,price);
+					//setCellText(row,3,/*pricesupplierData.items[i]);
 				})
 				.catch(error => {
 					//console.error('order error:', error);
 				}); 
 				
-				
+				//console.log(obj);
 			}
 			
-			
+			//console.log(supplierData.items);
+			//setCellText(row,3,price);
 			if(supplierData.paid == true){
 				setCellText(row,4,"Zaplaceno");
 			} else {
@@ -208,81 +218,15 @@ function getAllOrdersByType(container){
 	var type = orderUserName = document.getElementById('type');
 	var table = document.getElementById(container);
 	
-	table.innerHTML = "";
-	var row = addRowCells(table,6);
- 
-	setCellText(row,0,"Uživatel");	
-	setCellText(row,1,"Id objednávky");	
-	setCellText(row,2,"Datum");
-	setCellText(row,3,"Celková cena Objednávky");	
-	setCellText(row,4,"Stav Platby");
-	
-	var show = false;
-	database.ref('orders').once('value')
-	.then(snapshot => {
-		snapshot.forEach(childSnapshot => {
-			const supplierData = childSnapshot.val();
-			var show = false;
-			if (type == "all") {
-				show = true;
-
-			} else if (type == "sup" && supplierData.supId == "") {
-				show = true;
-			} else if (type == "sub" && supplierData.supId == "") {
-				show = true;
-			} else {
-				show = false;
-			}
-
-			if (show) {
-				var cellUpdate = '<a href="editObjednavka.html?id=' + childSnapshot.key + '" class="btn btn-primary">Editovat</a>';
-				var cellShow = '<a href="showObjednavka.html?id=' + childSnapshot.key + '" class="btn btn-primary">Ukázat</a>';
-
-				var row = addRowCells(table, 7);
-				setCellText(row, 0, "Uživatel");
-
-				setCellText(row, 1, childSnapshot.key);
-				setCellText(row, 2, new Date(supplierData.timestamp).toUTCString());
-
-				setCellText(row, 3, supplierData.items.length);
-
-				var price = 0;
-				for (let i = 0; i < supplierData.items.length; i++) {
-					let obj = supplierData.items[i];
-					var productRef = database.ref('products/' + obj.productId);
-
-
-					productRef.once('value').then(snapshot => {
-						var productData = snapshot.val();
-						price += productData.price * obj.quantity;
-						setCellText(row, 3, price);
-					})
-						.catch(error => {
-							//console.error('order error:', error);
-						});
-
-
-				}
-
-
-				if (supplierData.paid == true) {
-					setCellText(row, 4, "Zaplaceno");
-				} else {
-					setCellText(row, 4, "Čekání na platbu");
-				}
-
-				setCellText(row, 5, cellUpdate);
-				setCellText(row, 6, cellShow);
-			}
-			show = false;
-		});
-			   
-	})
-	.catch(error => {
-		console.error('Error fetching products:', error);
-	});
-	
-	
+	if(type == "all"){		
+		getAllOrders(container);
+	} else if(type == "sub"){
+		
+	} else if(type == "sup"){
+		
+	} else {
+		
+	}
 }
 function addRowCells(table,count){
 	var row = table.insertRow();

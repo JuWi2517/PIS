@@ -1,0 +1,41 @@
+table{
+  border-collapse: collapse;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+ 
+}
+table, th, td {
+  border: 1px solid;
+}
+.page-title {
+  text-align: center;
+  margin: 3%;
+}
+ 
+.admin-form {
+  margin-bottom: 2rem;
+}
+ 
+.admin-form .form-group {
+  margin-bottom: 1rem;
+}
+ 
+.role-assignment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+ 
+.role-assignment input {
+  flex-grow: 1;
+}
+ 
+ 
+ 
+.pooh {
+  margin-left: 65%;
+  margin-top: -15%;
+}

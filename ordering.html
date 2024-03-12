@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordering Page</title>
+    <link rel="stylesheet" href="style.css"> 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="js/cart.js"></script> 
+    <script src="js/order.js" defer></script> 
+</head>
+<body>
+    <div id="orderingPage">
+        <h2>Tvé produkty</h2>
+        <div id="cartContents"></div>
+        <button id="submitOrder">Potvrdit objednávku</button>
+    </div>
+
+    <script>
+       
+        document.addEventListener('DOMContentLoaded', displayCart); 
+    </script>
+</body>
+</html>

@@ -165,7 +165,7 @@
     })
   })
 </script>
-	<label for="type">Typy Objednávek:</label>
+	<label for="type">Měrná jednotka:</label>
 		<select id="type" name="type">
 			<option value="all">Všechny</option>
 			<option value="sub">Zákazníci</option>

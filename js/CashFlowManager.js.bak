@@ -91,8 +91,17 @@ function getCashFlow(from, to) {
 					prodejZisk.innerHTML = prodejZiskVal;
 					
 					celkemCashFlowVal += celkem;
-					celkemCashFlow.innerHTML = celkemCashFlowVal;
-					
+					celkemCashFlow.innerHTML = celkemCashFlowVal;	
+					/*
+					//console.log(productData.price);
+					var price2 = 0;
+					price2 += productData.price * obj.quantity;
+					//console.log(productData.price);
+					console.log(productData.price);
+					//console.log(price);
+					prodejZiskVal += price;
+					prodejZisk.innerHTML = prodejZiskVal;
+					*/
 					}
 				})
 				

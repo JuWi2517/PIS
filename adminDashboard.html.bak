@@ -47,9 +47,6 @@
 			  <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="uzivatele.html">Uživatelé</a>
               </li>
-			  <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="cashflow.html">Peněžní toky</a>
-              </li>
             </ul> 
           </div>
         </div>

@@ -308,7 +308,7 @@ function orderMaterialSupplier(container){
 	for(let i=1; i < table.rows.length-1;i++){
 		var row = table.rows[i];
 		var id = getCell(row,2).innerHTML;
-		var count = document.getElementById("order" + id).value;
+		var count = 0;//document.getElementById("order" + id).value;
 		
 		console.log("id: " + id + "count" + count);
 		
