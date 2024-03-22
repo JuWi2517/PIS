@@ -36,7 +36,7 @@ function createSupplier() {
 		ico: supplierIco,
 		bank_account: supplierBankAcount
 	});
-	window.location.href = "dodavatele.html";
+	//window.location.href = "dodavatele.html";
 	
 }
 function updateSupplier(id,data){

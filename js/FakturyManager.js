@@ -63,12 +63,12 @@ if (!firebase.apps.length) {
       });
   }
 
-  function renderOrder(orderId, downloadVar) {
+  async function renderOrder(orderId, downloadVar) {
     var database = firebase.database();
     var orderRef = database.ref('orders').child(orderId);
     var productsRef = database.ref('products');
     var suppliersRef = database.ref('suppliers');
-	var usersRef = database.ref('users');
+    var usersRef = database.ref('users');
 
     var datumVystaveni = document.getElementById("datumVystaveni");
     var datumSplatnosti = document.getElementById("datumSplatnosti");
@@ -77,127 +77,102 @@ if (!firebase.apps.length) {
     var elementWithDPH = document.getElementById("totalWithDPH");
     var elementSazbaDPH = document.getElementById("totalSazbaDPH");
 
-    var elementDodavatelJmeno = document.getElementById("odberatelJmeno");
-    var elementDodavatelAdresa = document.getElementById("odberatelAdresa");
-    var elementDodavatelPSC = document.getElementById("odberatelPSC");
-    var elementDodavatelICO = document.getElementById("odberatelICO");
+    var elementOdberatelJmeno = document.getElementById("odberatelJmeno");
+    var elementOdberatelAdresa = document.getElementById("odberatelAdresa");
+    var elementOdberatelPSC = document.getElementById("odberatelPSC");
+    var elementOdberatelICO = document.getElementById("odberatelICO");
 
-    Promise.all([orderRef.once('value'), productsRef.once('value')])
-        .then(function([orderSnapshot, productsSnapshot]) {
-            var order = orderSnapshot.val();
-            var products = productsSnapshot.val();
-			
-            if (order) {
-                var formattedDate = new Date(order.timestamp).toDateString();
-                datumVystaveni.innerHTML = formattedDate;
-                datumSplatnosti.innerHTML = formattedDate;
-                datumZdan.innerHTML = formattedDate;
-				
-				
-				
-                var supplierPromise = usersRef.child(order.userId).once('value');
+    try {
+        const [orderSnapshot, productsSnapshot] = await Promise.all([orderRef.once('value'), productsRef.once('value')]);
+        const order = orderSnapshot.val();
+        const products = productsSnapshot.val();
 
-                supplierPromise.then(function(supplierSnapshot) {
-                    var supplier = supplierSnapshot.val();
-					console.log(supplier);
-                    if (supplier) {
-                        elementDodavatelJmeno.innerHTML = supplier.name;
-						elementDodavatelAdresa.innerHTML = supplier.street;
-						elementDodavatelPSC.innerHTML = supplier.postalCode + " " + supplier.city;
-						
-                
-						/*
-                        var addressParts = supplier.adress.split(',');
-                        if (addressParts.length >= 2) {
-                            var adresa = addressParts[0].trim(); 
-                            var psc = addressParts[1].trim();   
-							/*
-                            elementDodavatelAdresa.innerHTML = adresa;
-                            elementDodavatelPSC.innerHTML = psc;
-							
-							elementDodavatelAdresa.innerHTML = supplier.street;
-							elementDodavatelPSC.innerHTML = supplier.postalCode + " " + supplier.city;
-                        } else {
-                            elementDodavatelAdresa.innerHTML = supplier.street;
-							elementDodavatelPSC.innerHTML = supplier.postalCode + " " + supplier.city;
-                        }
-						*/
-						//elementDodavatelAdresa.innerHTML = supplier.street;
-						//elementDodavatelPSC.innerHTML = supplier.postalCode + " " + supplier.city;
-                
-                        //elementDodavatelICO.innerHTML = supplier.ico;
-                    }
-                });
-				
+        if (order) {
+            var formattedDate = new Date(order.timestamp).toDateString();
+            datumVystaveni.innerHTML = formattedDate;
+            datumSplatnosti.innerHTML = formattedDate;
+            datumZdan.innerHTML = formattedDate;
 
-                var polozkyDiv = document.getElementById('polozky');
-                var table = document.createElement('table');
-                table.style.display = 'table';
-                table.style.width = '100%';
-                table.style.margin = '20px';
+            const supplierSnapshot = await usersRef.child(order.userId).once('value');
+            const supplier = supplierSnapshot.val();
 
+            if (supplier) {
+                elementOdberatelJmeno.innerHTML = supplier.name;
+                elementOdberatelAdresa.innerHTML = supplier.street;
+                elementOdberatelPSC.innerHTML = supplier.postalCode + " " + supplier.city;
 
-                var headerRow = table.insertRow();
-                ['Zboží', 'DPH', 'Cena za kus bez DPH', 'Cena za kus s DPH', 'Počet kusů', 'Cena Celkem'].forEach(function(headerText) {
-                    var headerCell = document.createElement('td');
-                    headerCell.textContent = headerText;
-                    headerRow.appendChild(headerCell);
-                });
-
-                var totalPriceWithoutDPH = 0;
-                var totalPriceWithDPH = 0;
-
-                order.items.forEach(function(item) {
-                    var product = products[item.productId];
-                    if (product) {
-                        var row = table.insertRow();
-                        ['name', 'dph', 'priceWithoutDPH', 'price', 'quantity', 'totalPrice'].forEach(function(property) {
-                            var cell = row.insertCell();
-                            if (property === 'dph') {
-                                cell.textContent = '18%'; 
-                            } else if (property === 'quantity') {
-                                cell.textContent = item.quantity+" Ks"; 
-                            } else if (property === 'priceWithoutDPH') {
-                                var priceWithoutDPH = parseFloat(product['price']) * 0.82;
-                                cell.textContent = priceWithoutDPH.toFixed(2)+" Kč"; 
-                                totalPriceWithoutDPH += priceWithoutDPH*item.quantity; 
-                            } else if (property === 'totalPrice') {
-                                var totalPrice = parseFloat(product['price']) * item.quantity;
-                                cell.textContent = totalPrice.toFixed(2)+" Kč";
-                                totalPriceWithDPH += totalPrice; 
-                            } else if (property === 'price') {
-                                cell.textContent = product['price'] + ' Kč';
-                            } else {
-                                cell.textContent = product[property];
-                            }
-                        });
-                    }
-                });
-                elementSazbaDPH.innerHTML = (totalPriceWithDPH - totalPriceWithoutDPH).toFixed(2)+" Kč";
-                elementWithDPH.innerHTML = totalPriceWithDPH.toFixed(2)+" Kč";
-                elementWithoutDPH.innerHTML = totalPriceWithoutDPH.toFixed(2)+" Kč";
-
-                polozkyDiv.appendChild(table);
-
-                // Uložení faktury
-                if (downloadVar =="true") {
-                    const element = document.getElementById("faktura");
-                    html2pdf().from(element).save();
-                }
-            } else {
-                console.log("Order with ID", orderId, "not found.");
+                if (supplier.ico) {
+                    elementOdberatelICO.innerHTML = "IČO: "+supplier.ico;
+                }       
             }
-        })
-        .catch(function(error) {
-            console.log('Error retrieving order or products:', error);
-        });
+
+            var polozkyDiv = document.getElementById('polozky');
+            var table = document.createElement('table');
+            table.style.display = 'table';
+            table.style.width = '100%';
+            table.style.margin = '20px';
+
+            var headerRow = table.insertRow();
+            ['Zboží', 'DPH', 'Cena za kus bez DPH', 'Cena za kus s DPH', 'Počet kusů', 'Cena Celkem'].forEach(function (headerText) {
+                var headerCell = document.createElement('td');
+                headerCell.textContent = headerText;
+                headerRow.appendChild(headerCell);
+            });
+
+            var totalPriceWithoutDPH = 0;
+            var totalPriceWithDPH = 0;
+
+            order.items.forEach(function (item) {
+                var product = products[item.productId];
+                if (product) {
+                    var row = table.insertRow();
+                    ['name', 'dph', 'priceWithoutDPH', 'price', 'quantity', 'totalPrice'].forEach(function (property) {
+                        var cell = row.insertCell();
+                        if (property === 'dph') {
+                            cell.textContent = '18%';
+                        } else if (property === 'quantity') {
+                            cell.textContent = item.quantity + " Ks";
+                        } else if (property === 'priceWithoutDPH') {
+                            var priceWithoutDPH = parseFloat(product['price']) * 0.82;
+                            cell.textContent = priceWithoutDPH.toFixed(2) + " Kč";
+                            totalPriceWithoutDPH += priceWithoutDPH * item.quantity;
+                        } else if (property === 'totalPrice') {
+                            var totalPrice = parseFloat(product['price']) * item.quantity;
+                            cell.textContent = totalPrice.toFixed(2) + " Kč";
+                            totalPriceWithDPH += totalPrice;
+                        } else if (property === 'price') {
+                            cell.textContent = product['price'] + ' Kč';
+                        } else {
+                            cell.textContent = product[property];
+                        }
+                    });
+                }
+            });
+            elementSazbaDPH.innerHTML = (totalPriceWithDPH - totalPriceWithoutDPH).toFixed(2) + " Kč";
+            elementWithDPH.innerHTML = totalPriceWithDPH.toFixed(2) + " Kč";
+            elementWithoutDPH.innerHTML = totalPriceWithoutDPH.toFixed(2) + " Kč";
+
+            polozkyDiv.appendChild(table);
+
+            // Uložení faktury
+            if (downloadVar == "true") {
+                const element = document.getElementById("faktura");
+                await html2pdf().from(element).save();
+            }
+        } else {
+            console.log("Order with ID", orderId, "not found.");
+        }
+    } catch (error) {
+        console.log('Error retrieving order or products:', error);
+    }
 }
- function renderNakup(orderId, downloadVar) {
+
+async function renderNakup(orderId, downloadVar) {
     var database = firebase.database();
-    var orderRef = database.ref('orders').child(orderId);
-    var productsRef = database.ref('products');
+    var orderRef = database.ref('ordersMaterials').child(orderId);
+    var materialsRef = database.ref('materials'); // Updated reference to 'materials' instead of 'products'
     var suppliersRef = database.ref('suppliers');
-	var customerRef = database.ref('customers');
+    var customerRef = database.ref('customers');
 
     var datumVystaveni = document.getElementById("datumVystaveni");
     var datumSplatnosti = document.getElementById("datumSplatnosti");
@@ -211,101 +186,85 @@ if (!firebase.apps.length) {
     var elementDodavatelPSC = document.getElementById("dodavatelPSC");
     var elementDodavatelICO = document.getElementById("dodavatelICO");
 
-    Promise.all([orderRef.once('value'), productsRef.once('value')])
-        .then(function([orderSnapshot, productsSnapshot]) {
-            var order = orderSnapshot.val();
-            var products = productsSnapshot.val();
-			
-            if (order) {
-                var formattedDate = new Date(order.timestamp).toDateString();
-                datumVystaveni.innerHTML = formattedDate;
-                datumSplatnosti.innerHTML = formattedDate;
-                datumZdan.innerHTML = formattedDate;
-				
-				
-				/*
-                var supplierPromise = suppliersRef.child(order.supplierID).once('value');
+    try {
+        const [orderSnapshot, materialsSnapshot] = await Promise.all([orderRef.once('value'), materialsRef.once('value')]);
+        var order = orderSnapshot.val();
+        var materials = materialsSnapshot.val();
 
-                supplierPromise.then(function(supplierSnapshot) {
-                    var supplier = supplierSnapshot.val();
-					console.log(supplier);
-                    if (supplier) {
-                        elementDodavatelJmeno.innerHTML = supplier.name;
-                
-                        var addressParts = supplier.adress.split(',');
-                        if (addressParts.length >= 2) {
-                            var adresa = addressParts[0].trim(); 
-                            var psc = addressParts[1].trim();   
-                            elementDodavatelAdresa.innerHTML = adresa;
-                            elementDodavatelPSC.innerHTML = psc;
-                        } else {
-                            elementDodavatelAdresa.innerHTML = supplier.adress.trim();
-                        }
-                
-                        elementDodavatelICO.innerHTML = supplier.ico;
-                    }
-                });
-				*/
+        if (order) {
+            var formattedDate = new Date(order.timestamp).toDateString();
+            datumVystaveni.innerHTML = formattedDate;
+            datumSplatnosti.innerHTML = formattedDate;
+            datumZdan.innerHTML = formattedDate;
 
-                var polozkyDiv = document.getElementById('polozky');
-                var table = document.createElement('table');
-                table.style.display = 'table';
-                table.style.width = '100%';
-                table.style.margin = '20px';
-
-
-                var headerRow = table.insertRow();
-                ['Zboží', 'DPH', 'Cena za kus bez DPH', 'Cena za kus s DPH', 'Počet kusů', 'Cena Celkem'].forEach(function(headerText) {
-                    var headerCell = document.createElement('td');
-                    headerCell.textContent = headerText;
-                    headerRow.appendChild(headerCell);
-                });
-
-                var totalPriceWithoutDPH = 0;
-                var totalPriceWithDPH = 0;
-
-                order.items.forEach(function(item) {
-                    var product = products[item.productId];
-                    if (product) {
-                        var row = table.insertRow();
-                        ['name', 'dph', 'priceWithoutDPH', 'price', 'quantity', 'totalPrice'].forEach(function(property) {
-                            var cell = row.insertCell();
-                            if (property === 'dph') {
-                                cell.textContent = '18%'; 
-                            } else if (property === 'quantity') {
-                                cell.textContent = item.quantity+" Ks"; 
-                            } else if (property === 'priceWithoutDPH') {
-                                var priceWithoutDPH = parseFloat(product['price']) * 0.82;
-                                cell.textContent = priceWithoutDPH.toFixed(2)+" Kč"; 
-                                totalPriceWithoutDPH += priceWithoutDPH*item.quantity; 
-                            } else if (property === 'totalPrice') {
-                                var totalPrice = parseFloat(product['price']) * item.quantity;
-                                cell.textContent = totalPrice.toFixed(2)+" Kč";
-                                totalPriceWithDPH += totalPrice; 
-                            } else if (property === 'price') {
-                                cell.textContent = product['price'] + ' Kč';
-                            } else {
-                                cell.textContent = product[property];
-                            }
-                        });
-                    }
-                });
-                elementSazbaDPH.innerHTML = (totalPriceWithDPH - totalPriceWithoutDPH).toFixed(2)+" Kč";
-                elementWithDPH.innerHTML = totalPriceWithDPH.toFixed(2)+" Kč";
-                elementWithoutDPH.innerHTML = totalPriceWithoutDPH.toFixed(2)+" Kč";
-
-                polozkyDiv.appendChild(table);
-
-                // Uložení faktury
-                if (downloadVar =="true") {
-                    const element = document.getElementById("faktura");
-                    html2pdf().from(element).save();
-                }
-            } else {
-                console.log("Order with ID", orderId, "not found.");
+            const supplierSnapshot = await suppliersRef.child(order.supplierID).once('value');
+            var supplier = supplierSnapshot.val();
+            if (supplier) {
+                elementDodavatelJmeno.innerHTML = supplier.name;
+                elementDodavatelICO.innerHTML = supplier.ico;
+                elementDodavatelAdresa.innerHTML = supplier.street;
+                elementDodavatelPSC.innerHTML = supplier.postalCode + " " + supplier.city;
             }
-        })
-        .catch(function(error) {
-            console.log('Error retrieving order or products:', error);
-        });
+
+            var polozkyDiv = document.getElementById('polozky');
+            var table = document.createElement('table');
+            table.style.display = 'table';
+            table.style.width = '100%';
+            table.style.margin = '20px';
+
+
+            var headerRow = table.insertRow();
+            ['Zboží', 'DPH', 'Cena za kus bez DPH', 'Cena za kus s DPH', 'Počet kusů', 'Cena Celkem'].forEach(function(headerText) {
+                var headerCell = document.createElement('td');
+                headerCell.textContent = headerText;
+                headerRow.appendChild(headerCell);
+            });
+
+            var totalPriceWithoutDPH = 0;
+            var totalPriceWithDPH = 0;
+
+            order.items.forEach(function(item) {
+                var material = materials[item.productId];
+                if (material) {
+                    var row = table.insertRow();
+                    ['name', 'dph', 'priceWithoutDPH', 'price', 'quantity', 'totalPrice'].forEach(function(property) {
+                        var cell = row.insertCell();
+                        if (property === 'dph') {
+                            cell.textContent = '18%';
+                        } else if (property === 'quantity') {
+                            cell.textContent = item.quantity + " Ks";
+                        } else if (property === 'priceWithoutDPH') {
+                            var priceWithoutDPH = parseFloat(material['price']) * 0.82;
+                            cell.textContent = priceWithoutDPH.toFixed(2) + " Kč";
+                            totalPriceWithoutDPH += priceWithoutDPH * item.quantity;
+                        } else if (property === 'totalPrice') {
+                            var totalPrice = parseFloat(material['price']) * item.quantity;
+                            cell.textContent = totalPrice.toFixed(2) + " Kč";
+                            totalPriceWithDPH += totalPrice;
+                        } else if (property === 'price') {
+                            cell.textContent = material['price'] + ' Kč';
+                        } else {
+                            cell.textContent = material[property];
+                        }
+                    });
+                }
+            });
+            elementSazbaDPH.innerHTML = (totalPriceWithDPH - totalPriceWithoutDPH).toFixed(2) + " Kč";
+            elementWithDPH.innerHTML = totalPriceWithDPH.toFixed(2) + " Kč";
+            elementWithoutDPH.innerHTML = totalPriceWithoutDPH.toFixed(2) + " Kč";
+
+            polozkyDiv.appendChild(table);
+
+            // Uložení faktury
+            if (downloadVar == "true") {
+                const element = document.getElementById("faktura");
+                await html2pdf().from(element).save();
+            }
+        } else {
+            console.log("Order with ID", orderId, "not found.");
+        }
+    } catch (error) {
+        console.log('Error retrieving order or materials:', error);
+    }
 }
+

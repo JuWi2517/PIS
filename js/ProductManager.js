@@ -15,7 +15,8 @@ if (!firebase.apps.length) {
 	firebase.app(); // if already initialized, use that one
 }
 
-//var database = firebase.database();
+var database = firebase.database();
+const storage = firebase.storage().ref();
 
 
 
@@ -113,6 +114,7 @@ function updateZbozi(id,data){
 	}
 }
 function deleteZbozi(id) {
+	var database = firebase.database();
 	const productRef = database.ref('products/' + id);
   
 	productRef.once('value')
@@ -143,7 +145,7 @@ function deleteZbozi(id) {
 	.then(() => {
 		console.log('Product deleted successfully');  
         
-		const productCard = document.getElementById('card-' + productId);
+		//const productCard = document.getElementById('card-' + productId);
 		if (productCard) {
 			productCard.remove();
 		}
@@ -212,7 +214,7 @@ function getAllZbozi(container){
 			
 			var totalPriceProduct = productData.price * productData.stockCount;
 			
-			var cellRemove = '<input class="btn btn-danger" type="submit" onclick="deleteProduct(\'' + childSnapshot.key + '\');" value="Smazat">'; 
+			var cellRemove = '<input class="btn btn-danger" type="submit" onclick="deleteZbozi(\'' + childSnapshot.key + '\');" value="Smazat">'; 
 			var cellEdit = '<a href="editZbozi.html?id=' + childSnapshot.key + '" class="btn btn-primary">Editovat</a>';
 			
 			var row = addRowCells(table,8); 

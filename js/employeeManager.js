@@ -98,7 +98,7 @@ function getEmployeeById(container,id){
 	
 	database.ref('employyes/' + id).once('value')
 	.then(snapshot => {
-		const employeeData = childSnapshot.val();
+		const employeeData = snapshot.val();
 		
 		employeeName.value = employeeData.name;
 		employeeAdress.value  = employeeData.adress;
