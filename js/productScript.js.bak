@@ -65,7 +65,7 @@ function createBootstrapCard(productName, imageURL, productDescription, productP
           <h5 class="card-title">${productName}</h5>
           <p class="card-text">${productDescription}</p>
           <p class="card-text">${productPrice}Kč</p>
-          <a href="detail.html?id=${productId}" class="btn btn-primary">Detail produktu</a>
+          <a href="detailTest.html?id=${productId}" class="btn btn-primary">Detail produktu</a>
            
         </div>
       </div>

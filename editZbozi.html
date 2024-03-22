@@ -68,29 +68,28 @@
     </div>
 	
 	  <h1 style="text-align: center; margin: 3%;">Editovat Zboží</h1>
-	  <img src="" id="productImagePreview">
+	  <img src="" id="productImagePreview" style="padding-left: 22%; height: 500px; " >
 	  <input type="text" id="eId" style="display:none;">
 	  <input type="text" id="eStock" style="display:none;">
 	  <input type="text" id="uniqueImageNameBox" style="display:none;">
             <div class="form-group">
-                <label for="productName">Název:</label>
+                <label for="productName" style="margin: 1%;">Název:</label>
                 <input type="text" class="form-control" id="productName" required>
             </div>
             <div class="form-group">
-                <label for="productImage">Obrázek:</label>
+                <label for="productImage" style="margin: 1%;">Obrázek:</label>
                 <input type="file" class="form-control-file" id="productImage" accept="image/*" >
             </div>
             <div class="form-group">
-                <label for="productDescription">Popis:</label>
+                <label for="productDescription" style="margin: 1%;">Popis:</label>
                 <input type="text" class="form-control" id="productDescription" required>
             </div>
             <div class="form-group">  
-                <label for="productPrice">Cena:</label>
+                <label for="productPrice" style="margin: 1%;">Cena:</label>
                 <input type="number" class="form-control-file" id="productPrice"  required>
             </div>
             
-            <button type="submit" id="addProductButton" class="btn btn-primary" onclick="updateZbozi(0,'')">Změnit</button>
-        
+            <button type="submit" id="addProductButton" class="btn btn-primary" onclick="updateZbozi(0,'')" style="width: 100%; margin: 1%;" >Změnit</button>
 		<script>
 			const queryString = window.location.search;		
 			const urlParams = new URLSearchParams(queryString);

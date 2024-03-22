@@ -103,7 +103,7 @@ if (!firebase.apps.length) {
                     if (supplier) {
                         elementDodavatelJmeno.innerHTML = supplier.name;
 						elementDodavatelAdresa.innerHTML = supplier.street;
-						elementDodavatelPSC.innerHTML = supplier.postalCode + " " + supplier.city;
+						//elementDodavatelPSC.innerHTML = supplier.postalCode + " " + supplier.city;
 						
                 
 						/*

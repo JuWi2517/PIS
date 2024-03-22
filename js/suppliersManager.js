@@ -24,6 +24,7 @@ function createSupplier() {
 	const supplierPhone = document.getElementById('sPhone').value;
 	const supplierAdress = document.getElementById('sAddress').value;
 	const supplierBankAcount = document.getElementById('sBankAccount').value;
+	const supplierIco = document.getElementById('sIco').value;
 
 	const newSupplierRef = database.ref('suppliers').push();
 	newSupplierRef.set({  
@@ -32,6 +33,7 @@ function createSupplier() {
 		email: supplierEmail,
 		phone: supplierPhone,
 		adress: supplierAdress,
+		ico: supplierIco,
 		bank_account: supplierBankAcount
 	});
 	window.location.href = "dodavatele.html";
@@ -45,6 +47,7 @@ function updateSupplier(id,data){
 	const supplierPhone = document.getElementById('sPhone').value;
 	const supplierAdress = document.getElementById('sAddress').value;
 	const supplierBankAcount = document.getElementById('sBankAccount').value;
+	const supplierIco = document.getElementById('sIco').value;
 	var idSupplierHid = document.getElementById('idSupplier');	
 	id = idSupplierHid.value;
 	
@@ -55,6 +58,7 @@ function updateSupplier(id,data){
 			email: supplierEmail,
 			phone: supplierPhone,
 			adress: supplierAdress,
+			ico: supplierIco,
 			bank_account: supplierBankAcount
 		});
 	window.location.href = "dodavatele.html";
@@ -72,6 +76,7 @@ function getSupplierById(container,id){
 	const supplierPhone = document.getElementById('sPhone');
 	const supplierAdress = document.getElementById('sAddress');
 	const supplierBankAcount = document.getElementById('sBankAccount');
+	const supplierIco = document.getElementById('sIco');
 	
 	database.ref('suppliers/' + id).once('value')
 	.then(snapshot => {
@@ -83,28 +88,10 @@ function getSupplierById(container,id){
 		supplierPhone.value  = supplierData.phone;
 		supplierAdress.value  = supplierData.adress;
 		supplierBankAcount.value  = supplierData.bank_account;
+		supplierIco.value = supplierData.ico;
 
-	})
-	/*
-	database.ref('suppliers').once('value')
-	.then(snapshot => {
-		snapshot.forEach(childSnapshot => {		 
-			const supplierData = childSnapshot.val();
-
-			if(childSnapshot.key == id){
-				supplierName.value = supplierData.name;
-				supplierPerson.value  = supplierData.person;
-				supplierEmail.value  = supplierData.email;
-				supplierPhone.value  = supplierData.phone;
-				supplierAdress.value  = supplierData.adress;
-				supplierBankAcount.value  = supplierData.bank_account;			
-			}
-		});
-	})
-	.catch(error => {
-		console.error('Error fetching products:', error);
-	});	
-	*/  
+	});
+	
 }
 function getAllSuppliers(container){
 	const products = new Array();

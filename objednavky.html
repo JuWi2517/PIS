@@ -140,9 +140,7 @@
 </div>
  
  
-<div class="pooh">
-  <img src="https://i.pinimg.com/originals/50/5a/0e/505a0e4591fc8052631bed84ac0de1ee.gif" alt="" srcset="" height="200px">
-</div>
+
 </div>
  
 <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
@@ -166,7 +164,7 @@
   })
 </script>
 	<label for="type">Typy Objednávek:</label>
-		<select id="type" name="type">
+		<select id="type" name="type" onchange='getAllOrdersByType("objednavkyTable")'>
 			<option value="all">Všechny</option>
 			<option value="sub">Zákazníci</option>
 			<option value="sup">Dodavatelé</option>
@@ -177,8 +175,8 @@
     </table>    
  
     <script>
-      getAllOrders("objednavkyTable");
-     
+      //getAllOrders("objednavkyTable");
+      getAllOrdersByType("objednavkyTable");
    
    
    

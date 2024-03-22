@@ -74,15 +74,7 @@
             <td>Celková cena</td>
             <td id="sumPrice"></td>
         </tr>
-        <tr>
-            <td>Stav platby</td>
-            <td>
-                <select id="orderState" disabled>
-                    <option value="true">Zaplaceno</option>
-                    <option value="false">Čekání na platbu</option>
-                </select>
-            </td>
-        </tr>
+       
     </table>
     <h2 style="text-align: center;margin: 3%;">Položky</h2>
     <table id="itemsOrderTable"></table>
@@ -93,7 +85,7 @@
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const product = urlParams.get('id')
-        getOrderByIdProdej("itemsOrderTable",product);
+        getOrderByIdNakup("itemsOrderTable",product);
 
         function showF() {
             const downloadVar = "false";

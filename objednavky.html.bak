@@ -165,8 +165,8 @@
     })
   })
 </script>
-	<label for="type">Měrná jednotka:</label>
-		<select id="type" name="type">
+	<label for="type">Typy Objednávek:</label>
+		<select id="type" name="type" onchange='getAllOrdersByType("objednavkyTable")'>
 			<option value="all">Všechny</option>
 			<option value="sub">Zákazníci</option>
 			<option value="sup">Dodavatelé</option>

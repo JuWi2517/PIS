@@ -18,9 +18,9 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="js/productScript.js"></script>
-  <script src="js/customerManager.js"></script>
-  <script src="js/checkRoles.js"></script>
   
+  <script src="js/logIn.js"></script>
+  <script src="js/checkSign.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   
     <div class="navBar">
@@ -40,20 +40,11 @@
                   <li class="nav-item">
                     <a id="admin" style="display: none;" class="nav-link active" aria-current="page" href="admin.html">Admin</a>
                   </li>
-                  <!-- <li class="nav-item" id="loginSection">
+                  <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="login.html">Login</a>
-                  </li> -->
-				  <li class="nav-item" id="loginSection">
-                    <a class="nav-link active" aria-current="page" href="loginCustomer.html">Přihlásit se</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="kosik.html">Košík</a>
-                  </li>
-				  <li class="nav-item" id="adminSection">
-                    <a class="nav-link active" aria-current="page" href="registerCustomer.html">Registrace</a>
-                  </li>
-				  <li class="nav-item" id="userSection">
-                    <a class="nav-link active" aria-current="page" href="">Uživatelská sekce</a>
                   </li>
                 </ul> 
               </div>
@@ -65,31 +56,37 @@
     
 
 
-    <h1 style="text-align: center; margin: 3%;">Produkty</h1>
 
-    <div id="productList" style="display: flex; flex-wrap: wrap; justify-content: center;">
-		<script type="text/javascript">
-			const queryString = window.location.search;		
-			const urlParams = new URLSearchParams(queryString);
-			const product = urlParams.get('userid');
-			const userSection = document.getElementById('userSection');
-      const registerSection = document.getElementById('registerSection');
-      const loginSection = document.getElementById('loginSection');
-			
-			fetchAndDisplayProducts();
-      /*
-			if(isCustomer(product)){
-				userSection.style.display = "block";
-			} else {
-				userSection.style.display = "none";
-			}
-      */
-			
-		</script>
+	<h1 id="nazevZbozi" style="text-align:center;"></h1>
+	<div style="display: table;">
+		<div style="display: table-cell; width: 50%; text-align: center;">
+			<img id="imgZbozi" src="" style="width:inherit">
+		</div>
+		<div style="display: table-cell;
+    margin: 25px;
+    text-align: center;">
+			<div>
+				<p id="descriptionZbozi"></p>
+			</div>
+			<div>
+				<p id="priceZbozi"></p>
+				<a href="#" class="btn btn-primary" onclick=addToCart() id="buyButton" style="margin:25px;display:block;">Koupit</a>
+			</div>
+		</div>
 	</div>
-  
+	
+    <script>
+		const queryString = window.location.search;		
+		const urlParams = new URLSearchParams(queryString);
+		const product = urlParams.get('id')
+		getProduktById("zkouska",product);		
+		
+		const button = document.getElementById('buyButton');
+    console.log(product);
+    button.setAttribute('data-product-id', product);
+	</script>
 
   
-   
+<script src="js/productBuyScript.js"></script>
 </body>
 </html>
